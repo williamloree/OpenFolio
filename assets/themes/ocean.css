@@ -1,0 +1,468 @@
+/* assets/themes/ocean.css - Thème Profondeurs Océaniques */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import des polices fluides */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap');
+
+/* Variables CSS du thème Océan */
+:root {
+  /* Couleurs principales */
+  --primary-color: #0ea5e9;
+  --secondary-color: #0284c7;
+  --accent-color: #06b6d4;
+  
+  /* Arrière-plans */
+  --background-primary: #0c1429;
+  --background-secondary: #1e293b;
+  --background-tertiary: #334155;
+  
+  /* Textes */
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  
+  /* Bordures */
+  --border-color: #475569;
+  
+  /* États */
+  --success-color: #059669;
+  --warning-color: #d97706;
+  --error-color: #dc2626;
+  --info-color: #0ea5e9;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #0ea5e9, #0284c7);
+  --gradient-accent: linear-gradient(135deg, #06b6d4, #0ea5e9);
+  --gradient-hero: linear-gradient(135deg, #0c4a6e 0%, #075985 50%, #0369a1 100%);
+  --gradient-card: linear-gradient(145deg, #1e293b, #0c1429);
+  
+  /* Ombres océaniques */
+  --shadow-glow: 0 0 25px rgba(14, 165, 233, 0.4);
+  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 20px 40px rgba(14, 165, 233, 0.3);
+  
+  /* Police fluide */
+  --font-family: 'Nunito', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Configuration de base océan */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-family);
+}
+
+body {
+  background-color: var(--background-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: 16px;
+  overflow-x: hidden;
+  font-family: var(--font-family);
+  background-image: 
+    radial-gradient(circle at 30% 40%, rgba(14, 165, 233, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(2, 132, 199, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 50% 80%, rgba(6, 182, 212, 0.05) 0%, transparent 50%);
+  background-attachment: fixed;
+}
+
+/* Scrollbar océanique */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-secondary);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gradient-primary);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  box-shadow: 0 0 15px rgba(14, 165, 233, 0.5);
+}
+
+/* Sélection océanique */
+::selection {
+  background: var(--primary-color);
+  color: var(--background-primary);
+}
+
+/* Classes utilitaires océan */
+.bg-theme-primary { 
+  background-color: var(--background-primary);
+  background-image: 
+    radial-gradient(ellipse at 20% 80%, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(6, 182, 212, 0.08) 0%, transparent 50%);
+}
+.bg-theme-secondary { 
+  background-color: var(--background-secondary);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(14, 165, 233, 0.1);
+}
+.bg-theme-tertiary { 
+  background-color: var(--background-tertiary);
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+}
+
+.text-theme-primary { 
+  color: var(--text-primary);
+}
+.text-theme-secondary { 
+  color: var(--text-secondary);
+}
+.text-theme-muted { 
+  color: var(--text-muted);
+}
+
+.border-theme { 
+  border-color: var(--border-color);
+  border-radius: 12px;
+}
+
+.gradient-primary { 
+  background: var(--gradient-primary);
+  border-radius: 12px;
+}
+.gradient-accent { 
+  background: var(--gradient-accent);
+  border-radius: 12px;
+}
+.gradient-hero { background: var(--gradient-hero); }
+.gradient-card { 
+  background: var(--gradient-card);
+  border: 1px solid rgba(14, 165, 233, 0.2);
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+}
+
+.shadow-theme-glow { 
+  box-shadow: var(--shadow-glow);
+}
+.shadow-theme-card { 
+  box-shadow: var(--shadow-card);
+}
+.shadow-theme-hover { 
+  box-shadow: var(--shadow-hover);
+}
+
+/* Boutons océaniques */
+.btn-theme-primary {
+  background: var(--gradient-primary);
+  color: var(--text-primary);
+  @apply px-6 py-3 rounded-xl font-medium transition-all duration-500;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-theme-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-theme-primary:hover::before {
+  left: 100%;
+}
+
+.btn-theme-primary:hover {
+  box-shadow: 0 8px 25px rgba(14, 165, 233, 0.5);
+  transform: translateY(-3px);
+  border-color: var(--accent-color);
+}
+
+.btn-theme-secondary {
+  background: var(--background-secondary);
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
+  @apply px-6 py-3 rounded-xl font-medium transition-all duration-500;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-theme-secondary:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 6px 20px rgba(14, 165, 233, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Animations océaniques */
+@keyframes wave {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-5px) rotate(1deg);
+  }
+  50% {
+    transform: translateY(-3px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-7px) rotate(-1deg);
+  }
+}
+
+@keyframes ocean-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.4), inset 0 0 20px rgba(14, 165, 233, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(14, 165, 233, 0.6), inset 0 0 30px rgba(14, 165, 233, 0.2);
+  }
+}
+
+@keyframes bubble-float {
+  0% {
+    transform: translateY(100vh) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes current-flow {
+  0% {
+    transform: translateX(-50px) translateY(0px);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateX(0px) translateY(-10px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateX(50px) translateY(0px);
+    opacity: 0.3;
+  }
+}
+
+.animate-wave { animation: wave 3s ease-in-out infinite; }
+.animate-ocean-pulse { animation: ocean-pulse 2.5s ease-in-out infinite; }
+.animate-bubble-float { animation: bubble-float 6s linear infinite; }
+.animate-current-flow { animation: current-flow 4s ease-in-out infinite; }
+
+/* Navigation océanique */
+.nav-link {
+  @apply relative transition-all duration-400;
+  color: var(--text-secondary);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.nav-link::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-600;
+  background: var(--gradient-primary);
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+}
+
+.nav-link:hover::after,
+.nav-link.router-link-active::after {
+  @apply w-full;
+}
+
+.nav-link.router-link-active {
+  color: var(--text-primary);
+}
+
+/* Cartes océaniques */
+.card-theme {
+  background: var(--gradient-card);
+  border: 2px solid var(--border-color);
+  @apply rounded-2xl transition-all duration-600;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-theme::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: var(--gradient-primary);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.card-theme:hover::before {
+  opacity: 0.1;
+}
+
+.card-theme:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 15px 35px rgba(14, 165, 233, 0.4);
+  transform: translateY(-6px) scale(1.02);
+}
+
+/* Timeline océanique */
+.timeline-item::before {
+  background: var(--gradient-primary);
+  border-radius: 3px;
+  box-shadow: 0 0 15px rgba(14, 165, 233, 0.4);
+}
+
+.timeline-dot {
+  background: var(--gradient-primary);
+  border-color: var(--background-primary);
+  box-shadow: 0 0 20px rgba(14, 165, 233, 0.6);
+  animation: ocean-pulse 3s ease-in-out infinite;
+}
+
+/* Bulles d'océan */
+.ocean-bubble {
+  position: absolute;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.3), rgba(6, 182, 212, 0.1));
+  border-radius: 50%;
+  animation: bubble-float 8s linear infinite;
+  pointer-events: none;
+}
+
+.ocean-current {
+  position: absolute;
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.3), transparent);
+  animation: current-flow 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Particules océaniques */
+.particle {
+  @apply absolute rounded-full;
+  animation: wave 4s ease-in-out infinite;
+  background: radial-gradient(circle, var(--primary-color), var(--secondary-color));
+  opacity: 0.6;
+  box-shadow: 0 0 15px currentColor;
+}
+
+.particle:nth-child(2) {
+  animation-delay: -1.5s;
+  background: radial-gradient(circle, var(--accent-color), var(--primary-color));
+  animation-duration: 5s;
+}
+
+.particle:nth-child(3) {
+  animation-delay: -3s;
+  background: radial-gradient(circle, var(--secondary-color), var(--accent-color));
+  animation-duration: 6s;
+}
+
+/* Effets hover océaniques */
+.hover-glow:hover {
+  box-shadow: 0 10px 30px rgba(14, 165, 233, 0.4);
+  transform: translateY(-3px);
+  border-radius: 16px;
+}
+
+/* Focus océanique */
+*:focus {
+  @apply outline-none;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.4);
+  border-radius: 8px;
+}
+
+/* Effet de profondeur */
+.depth-effect {
+  background: 
+    linear-gradient(135deg, rgba(14, 165, 233, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(6, 182, 212, 0.1) 0%, transparent 70%);
+}
+
+/* Responsive océanique */
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+  
+  .card-theme {
+    @apply rounded-xl p-4;
+  }
+  
+  .btn-theme-primary,
+  .btn-theme-secondary {
+    @apply px-4 py-2 text-sm rounded-lg;
+  }
+}
+
+/* Effet de vagues pour les sections */
+.wave-section {
+  position: relative;
+}
+
+.wave-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' opacity='.25' fill='%230ea5e9'/%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' opacity='.5' fill='%230ea5e9'/%3E%3Cpath d='M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z' fill='%230ea5e9'/%3E%3C/svg%3E") no-repeat center top;
+  background-size: cover;
+  opacity: 0.1;
+}
+
+/* Thème transition fluide */
+.theme-transition {
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Effet de réfraction pour les éléments importants */
+.refraction-effect {
+  position: relative;
+}
+
+.refraction-effect::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 40%, rgba(14, 165, 233, 0.1) 50%, transparent 60%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.refraction-effect:hover::after {
+  opacity: 1;
+}

@@ -1,22 +1,23 @@
 <template>
   <div
-    class="bg-black text-white flex flex-col items-center justify-center px-6 mt-10"
+    class="text-theme-primary flex flex-col items-center justify-center px-6 mt-10"
   >
     <!-- Loading state -->
     <div v-if="loading" class="text-center">
       <div class="w-20 h-20 mx-auto mb-6 relative">
         <div
-          class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full animate-pulse"
+          class="absolute inset-0 gradient-primary rounded-full animate-pulse"
         ></div>
         <div
-          class="absolute inset-2 bg-black rounded-full flex items-center justify-center"
+          class="absolute inset-2 bg-theme-primary rounded-full flex items-center justify-center"
         >
           <div
-            class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"
+            class="animate-spin rounded-full h-8 w-8 border-b-2 border-theme"
+            :style="{ borderColor: 'var(--primary-color)' }"
           ></div>
         </div>
       </div>
-      <p class="text-gray-400">Chargement du profil...</p>
+      <p class="text-theme-muted">Chargement du profil...</p>
     </div>
 
     <!-- Error state -->
@@ -36,7 +37,7 @@
           />
         </svg>
         <h3 class="text-xl font-bold mb-2">Erreur de chargement</h3>
-        <p class="text-gray-400">{{ error }}</p>
+        <p class="text-theme-muted">{{ error }}</p>
       </div>
     </div>
 
@@ -44,7 +45,8 @@
     <div v-else-if="data?.profile" class="text-center mb-12">
       <!-- Avatar -->
       <div
-        class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-gray-700 hover:border-blue-500 transition-all duration-300 transform hover:scale-105"
+        class="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-theme hover:shadow-theme-glow transition-all duration-300 transform hover:scale-105"
+        :style="{ borderColor: 'var(--border-color)' }"
       >
         <img
           :src="
@@ -58,11 +60,12 @@
 
       <!-- Name and Title -->
       <h1
-        class="text-3xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"
+        class="text-3xl font-bold mb-2 gradient-primary bg-clip-text text-transparent"
+        style="background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"
       >
         {{ data.profile.username || "@votre_username" }}
       </h1>
-      <p class="text-gray-300 text-lg font-light">
+      <p class="text-theme-secondary text-lg font-light">
         {{
           data.profile.title ||
           "Développeur Full-Stack & Créateur de Solutions Web"
@@ -72,7 +75,7 @@
       <!-- Bio optionnelle -->
       <p
         v-if="data.profile.bio"
-        class="text-gray-400 text-sm mt-4 max-w-md mx-auto leading-relaxed"
+        class="text-theme-muted text-sm mt-4 max-w-md mx-auto leading-relaxed"
       >
         {{ data.profile.bio }}
       </p>
@@ -87,7 +90,7 @@
         :target="link.external ? '_blank' : '_self'"
         :rel="link.external ? 'noopener noreferrer' : undefined"
         :class="[
-          'flex items-center p-4 rounded-lg transition-all duration-300 group hover:scale-105',
+          'flex items-center p-4 rounded-lg transition-all duration-300 group hover:scale-105 hover-glow',
           getLinkStyles(link.type),
         ]"
       >
@@ -100,11 +103,11 @@
           <Icon :name="link.icon" class="w-6 h-6" />
         </div>
         <div class="flex-1">
-          <h3 class="text-white font-semibold">{{ link.title }}</h3>
-          <p class="text-gray-400 text-sm">{{ link.description }}</p>
+          <h3 class="text-theme-primary font-semibold">{{ link.title }}</h3>
+          <p class="text-theme-muted text-sm">{{ link.description }}</p>
         </div>
         <svg
-          class="w-5 h-5 text-gray-400 group-hover:text-white group-hover:translate-x-1 transition-all"
+          class="w-5 h-5 text-theme-muted group-hover:text-theme-primary group-hover:translate-x-1 transition-all"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -124,7 +127,7 @@
       <div
         v-for="(particle, index) in backgroundParticles"
         :key="index"
-        :class="['absolute rounded-full', particle.class]"
+        :class="['absolute rounded-full particle', particle.class]"
         :style="particle.style"
       ></div>
     </div>
@@ -260,39 +263,39 @@ const backgroundParticles = computed(() => {
     return data.value.particles;
   }
 
-  // Particules par défaut
+  // Particules par défaut avec classes de thème
   return [
     {
-      class: "w-2 h-2 bg-blue-500 animate-pulse",
-      style: "top: 25%; left: 25%; animation-delay: 0s;",
+      class: "w-2 h-2 animate-float",
+      style: "top: 25%; left: 25%; animation-delay: 0s; background: var(--primary-color); opacity: 0.7;",
     },
     {
-      class: "w-1 h-1 bg-purple-500 animate-ping",
-      style: "top: 75%; right: 25%; animation-delay: 1s;",
+      class: "w-1 h-1 animate-float",
+      style: "top: 75%; right: 25%; animation-delay: 1s; background: var(--secondary-color); opacity: 0.6;",
     },
     {
-      class: "w-1.5 h-1.5 bg-green-500 animate-pulse",
-      style: "bottom: 25%; left: 33%; animation-delay: 2s;",
+      class: "w-1.5 h-1.5 animate-float",
+      style: "bottom: 25%; left: 33%; animation-delay: 2s; background: var(--accent-color); opacity: 0.8;",
     },
   ];
 });
 
-// Fonctions pour les styles et icônes des liens
+// Fonctions pour les styles et icônes des liens adaptées au thème
 const getLinkStyles = (type: string) => {
-  const baseClass = "bg-gray-900 hover:bg-gray-800";
+  // Utilise les classes de base avec les variables CSS
+  const baseClass = "bg-theme-secondary hover:bg-theme-tertiary";
 
-  // Styles spéciaux pour certains types
+  // Styles spéciaux pour certains types avec les variables du thème
   const specialStyles = {
-    featured:
-      "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700",
-    primary:
-      "bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700",
+    featured: "gradient-primary hover:shadow-theme-hover",
+    primary: "gradient-accent hover:shadow-theme-hover",
   };
 
   return specialStyles[type] || baseClass;
 };
 
 const getLinkIconBg = (type: string) => {
+  // Garde les couleurs spécifiques pour les icônes de réseaux sociaux
   const colors = {
     instagram: "bg-gradient-to-br from-purple-500 to-pink-500",
     github: "bg-gray-700",
@@ -313,6 +316,6 @@ const getLinkIconBg = (type: string) => {
     patreon: "bg-orange-500",
   };
 
-  return colors[type] || "bg-gray-600";
+  return colors[type] || "bg-theme-secondary";
 };
 </script>

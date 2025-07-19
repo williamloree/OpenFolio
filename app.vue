@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="min-h-screen bg-black text-white">
+  <div id="app" class="min-h-screen text-white">
     <!-- Loading global -->
     <Transition
       name="loading"

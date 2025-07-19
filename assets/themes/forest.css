@@ -1,0 +1,527 @@
+/* assets/themes/forest.css - Thème Forêt Mystique */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import des polices naturelles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Variables CSS du thème Forêt */
+:root {
+  /* Couleurs principales */
+  --primary-color: #22c55e;
+  --secondary-color: #16a34a;
+  --accent-color: #84cc16;
+  
+  /* Arrière-plans */
+  --background-primary: #0f1f0f;
+  --background-secondary: #1a2e1a;
+  --background-tertiary: #2d4a2d;
+  
+  /* Textes */
+  --text-primary: #f0fdf4;
+  --text-secondary: #bbf7d0;
+  --text-muted: #86efac;
+  
+  /* Bordures */
+  --border-color: #166534;
+  
+  /* États */
+  --success-color: #22c55e;
+  --warning-color: #eab308;
+  --error-color: #dc2626;
+  --info-color: #3b82f6;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #22c55e, #16a34a);
+  --gradient-accent: linear-gradient(135deg, #84cc16, #22c55e);
+  --gradient-hero: linear-gradient(135deg, #065f46 0%, #047857 50%, #059669 100%);
+  --gradient-card: linear-gradient(145deg, #1a2e1a, #0f1f0f);
+  
+  /* Ombres naturelles */
+  --shadow-glow: 0 0 25px rgba(34, 197, 94, 0.4);
+  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --shadow-hover: 0 20px 40px rgba(34, 197, 94, 0.3);
+  
+  /* Police naturelle */
+  --font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Configuration de base forêt */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-family);
+}
+
+body {
+  background-color: var(--background-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: 16px;
+  overflow-x: hidden;
+  font-family: var(--font-family);
+  background-image: 
+    radial-gradient(circle at 30% 20%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 80%, rgba(22, 163, 74, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 20% 70%, rgba(132, 204, 22, 0.05) 0%, transparent 50%);
+}
+
+/* Scrollbar naturelle */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-secondary);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gradient-primary);
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(34, 197, 94, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+}
+
+/* Sélection naturelle */
+::selection {
+  background: var(--primary-color);
+  color: var(--background-primary);
+}
+
+/* Classes utilitaires forêt */
+.bg-theme-primary { 
+  background-color: var(--background-primary);
+  background-image: 
+    radial-gradient(circle at 25% 75%, rgba(34, 197, 94, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 75% 25%, rgba(22, 163, 74, 0.08) 0%, transparent 50%);
+}
+
+.bg-theme-secondary { 
+  background-color: var(--background-secondary);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+}
+
+.bg-theme-tertiary { 
+  background-color: var(--background-tertiary);
+  border-radius: 12px;
+}
+
+.text-theme-primary { 
+  color: var(--text-primary);
+}
+
+.text-theme-secondary { 
+  color: var(--text-secondary);
+}
+
+.text-theme-muted { 
+  color: var(--text-muted);
+}
+
+.border-theme { 
+  border-color: var(--border-color);
+  border-radius: 12px;
+}
+
+.gradient-primary { 
+  background: var(--gradient-primary);
+  border-radius: 12px;
+}
+
+.gradient-accent { 
+  background: var(--gradient-accent);
+  border-radius: 12px;
+}
+
+.gradient-hero { 
+  background: var(--gradient-hero); 
+}
+
+.gradient-card { 
+  background: var(--gradient-card);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
+}
+
+.shadow-theme-glow { 
+  box-shadow: var(--shadow-glow);
+}
+
+.shadow-theme-card { 
+  box-shadow: var(--shadow-card);
+}
+
+.shadow-theme-hover { 
+  box-shadow: var(--shadow-hover);
+}
+
+/* Boutons naturels */
+.btn-theme-primary {
+  background: var(--gradient-primary);
+  color: var(--text-primary);
+  @apply px-6 py-3 rounded-xl font-medium transition-all duration-500;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+}
+
+.btn-theme-primary:hover {
+  box-shadow: 0 8px 25px rgba(34, 197, 94, 0.5);
+  transform: translateY(-3px);
+  border-color: var(--accent-color);
+}
+
+.btn-theme-secondary {
+  background: var(--background-secondary);
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
+  @apply px-6 py-3 rounded-xl font-medium transition-all duration-500;
+  backdrop-filter: blur(10px);
+}
+
+.btn-theme-secondary:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 6px 20px rgba(34, 197, 94, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Animations naturelles */
+@keyframes leaf-sway {
+  0%, 100% {
+    transform: rotate(-2deg) translateY(0px);
+  }
+  50% {
+    transform: rotate(2deg) translateY(-5px);
+  }
+}
+
+@keyframes nature-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.4), inset 0 0 20px rgba(34, 197, 94, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(34, 197, 94, 0.6), inset 0 0 30px rgba(34, 197, 94, 0.2);
+  }
+}
+
+@keyframes growing {
+  0% {
+    transform: scale(0.8) translateY(10px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes floating-leaves {
+  0% {
+    transform: translateY(0px) rotateZ(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotateZ(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-leaf-sway { animation: leaf-sway 4s ease-in-out infinite; }
+.animate-nature-pulse { animation: nature-pulse 3s ease-in-out infinite; }
+.animate-growing { animation: growing 0.8s ease-out forwards; }
+.animate-floating-leaves { animation: floating-leaves 8s linear infinite; }
+.animate-fadeInUp { animation: fadeInUp 0.6s ease-out forwards; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+
+/* Navigation naturelle */
+.nav-link {
+  @apply relative transition-all duration-300;
+  color: var(--text-secondary);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.nav-link::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-500;
+  background: var(--gradient-primary);
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+}
+
+.nav-link:hover::after,
+.nav-link.router-link-active::after {
+  @apply w-full;
+}
+
+.nav-link.router-link-active {
+  color: var(--text-primary);
+}
+
+/* Cartes naturelles */
+.card-theme {
+  background: var(--gradient-card);
+  border: 2px solid var(--border-color);
+  @apply rounded-2xl transition-all duration-500;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-theme::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.1) 0%, transparent 70%);
+  transition: opacity 0.5s;
+  opacity: 0;
+}
+
+.card-theme:hover::before {
+  opacity: 1;
+}
+
+.card-theme:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 15px 35px rgba(34, 197, 94, 0.4);
+  transform: translateY(-6px) scale(1.02);
+}
+
+/* Timeline naturelle */
+.timeline-item {
+  @apply relative pl-20 pb-12;
+}
+
+.timeline-item::before {
+  content: '';
+  @apply absolute left-8 top-0 bottom-0 w-0.5;
+  background: var(--gradient-primary);
+  border-radius: 3px;
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.4);
+}
+
+.timeline-dot {
+  @apply absolute left-6 w-4 h-4 rounded-full border-4 z-10;
+  background: var(--gradient-primary);
+  border-color: var(--background-primary);
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.6);
+  animation: nature-pulse 4s ease-in-out infinite;
+}
+
+/* Éléments de nature en arrière-plan */
+.nature-element {
+  position: absolute;
+  color: var(--primary-color);
+  opacity: 0.1;
+  font-size: 20px;
+  animation: leaf-sway 6s ease-in-out infinite;
+}
+
+.floating-leaf {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--gradient-accent);
+  border-radius: 0 100% 0 100%;
+  animation: floating-leaves 10s linear infinite;
+  opacity: 0.3;
+}
+
+/* Particules naturelles */
+.particle {
+  @apply absolute rounded-full;
+  animation: float 6s ease-in-out infinite;
+  background: radial-gradient(circle, var(--primary-color), var(--secondary-color));
+  opacity: 0.6;
+  border-radius: 50%;
+}
+
+.particle:nth-child(2) {
+  animation-delay: -2s;
+  background: radial-gradient(circle, var(--accent-color), var(--primary-color));
+  animation-duration: 8s;
+}
+
+.particle:nth-child(3) {
+  animation-delay: -4s;
+  background: radial-gradient(circle, var(--secondary-color), var(--accent-color));
+  animation-duration: 7s;
+}
+
+/* Effets hover naturels */
+.hover-glow {
+  transition: all 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
+  transform: translateY(-3px);
+  border-radius: 15px;
+}
+
+/* Focus naturel */
+*:focus {
+  @apply outline-none;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.4);
+  border-radius: 8px;
+}
+
+/* Textures naturelles */
+.nature-texture {
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(22, 163, 74, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(132, 204, 22, 0.05) 0%, transparent 50%);
+}
+
+/* Responsive naturel */
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+  
+  .timeline-item {
+    @apply pl-16;
+  }
+  
+  .timeline-item::before {
+    @apply left-6;
+  }
+  
+  .timeline-dot {
+    @apply left-4 w-3 h-3;
+  }
+  
+  .card-theme {
+    @apply rounded-xl p-4;
+  }
+  
+  .btn-theme-primary,
+  .btn-theme-secondary {
+    @apply px-4 py-2 text-sm rounded-lg;
+  }
+}
+
+/* Effets spéciaux de croissance */
+.grow-effect {
+  transition: all 0.3s ease;
+}
+
+.grow-effect:hover {
+  transform: scale(1.05);
+}
+
+/* Bordures organiques */
+.organic-border {
+  border-radius: 50% 20% / 10% 40%;
+  transition: border-radius 0.5s ease;
+}
+
+.organic-border:hover {
+  border-radius: 20% 50% / 40% 10%;
+}
+
+/* Animation de respiration pour les éléments vivants */
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.animate-breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+/* Thème transition douce */
+.theme-transition {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Effet de fond pour le thème forêt */
+.forest-background {
+  background-image: 
+    radial-gradient(ellipse at 25% 25%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 75%, rgba(22, 163, 74, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(132, 204, 22, 0.05) 0%, transparent 50%);
+  background-attachment: fixed;
+}
+
+/* Effet de lumière filtrée */
+.filtered-light {
+  position: relative;
+}
+
+.filtered-light::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(34, 197, 94, 0.1) 50%,
+    transparent 70%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.filtered-light:hover::before {
+  opacity: 1;
+}
+
+/* Mode sombre forcé */
+.dark {
+  color-scheme: dark;
+}

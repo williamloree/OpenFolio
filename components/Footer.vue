@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-gray-900 border-t border-gray-800 mt-20">
+  <footer class="bg-theme-secondary border-t border-theme mt-20 theme-transition">
     <div class="max-w-6xl mx-auto px-6 py-12">
       <!-- Contenu principal du footer -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
@@ -7,13 +7,13 @@
         <div class="lg:col-span-2">
           <div class="flex items-center mb-4">
             <div
-              class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-3"
+              class="w-10 h-10 gradient-primary rounded-lg flex items-center justify-center mr-3 shadow-theme-glow"
             >
               <span class="text-white font-bold text-lg">P</span>
             </div>
-            <h3 class="text-white font-bold text-xl">Portfolio</h3>
+            <h3 class="text-theme-primary font-bold text-xl">Portfolio</h3>
           </div>
-          <p class="text-gray-400 text-sm leading-relaxed mb-6 max-w-md">
+          <p class="text-theme-muted text-sm leading-relaxed mb-6 max-w-md">
             Développeur Full-Stack passionné spécialisé dans les technologies
             web modernes. Toujours à la recherche de nouveaux défis et
             d'opportunités d'apprentissage pour créer des solutions innovantes.
@@ -22,25 +22,26 @@
           <!-- Statistiques -->
           <div class="grid grid-cols-3 gap-4 max-w-md">
             <div class="text-center">
-              <div class="text-2xl font-bold text-blue-400">3+</div>
-              <div class="text-xs text-gray-500">Années d'expérience</div>
+              <div class="text-2xl font-bold" :style="{ color: 'var(--primary-color)' }">3+</div>
+              <div class="text-xs text-theme-muted">Années d'expérience</div>
             </div>
             <div class="text-center">
-              <div class="text-2xl font-bold text-green-400">50+</div>
-              <div class="text-xs text-gray-500">Projets réalisés</div>
+              <div class="text-2xl font-bold" :style="{ color: 'var(--accent-color)' }">50+</div>
+              <div class="text-xs text-theme-muted">Projets réalisés</div>
             </div>
             <div class="text-center">
-              <div class="text-2xl font-bold text-purple-400">100%</div>
-              <div class="text-xs text-gray-500">Satisfaction client</div>
+              <div class="text-2xl font-bold" :style="{ color: 'var(--secondary-color)' }">100%</div>
+              <div class="text-xs text-theme-muted">Satisfaction client</div>
             </div>
           </div>
         </div>
 
         <!-- Colonne 2: Navigation -->
         <div>
-          <h3 class="text-white font-semibold mb-4 flex items-center">
+          <h3 class="text-theme-primary font-semibold mb-4 flex items-center">
             <svg
-              class="w-5 h-5 mr-2 text-blue-400"
+              class="w-5 h-5 mr-2"
+              :style="{ color: 'var(--primary-color)' }"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -57,31 +58,31 @@
           <div class="space-y-3">
             <NuxtLink
               to="/"
-              class="block text-gray-400 hover:text-white text-sm transition-colors duration-200 hover:translate-x-1 transform"
+              class="block text-theme-muted hover:text-theme-primary text-sm transition-all duration-200 hover:translate-x-1 transform hover-glow"
             >
               🏠 Accueil
             </NuxtLink>
             <NuxtLink
               to="/experiences"
-              class="block text-gray-400 hover:text-white text-sm transition-colors duration-200 hover:translate-x-1 transform"
+              class="block text-theme-muted hover:text-theme-primary text-sm transition-all duration-200 hover:translate-x-1 transform hover-glow"
             >
               💼 Expériences
             </NuxtLink>
             <NuxtLink
               to="/projets"
-              class="block text-gray-400 hover:text-white text-sm transition-colors duration-200 hover:translate-x-1 transform"
+              class="block text-theme-muted hover:text-theme-primary text-sm transition-all duration-200 hover:translate-x-1 transform hover-glow"
             >
               🚀 Projets
             </NuxtLink>
             <NuxtLink
               to="/formations"
-              class="block text-gray-400 hover:text-white text-sm transition-colors duration-200 hover:translate-x-1 transform"
+              class="block text-theme-muted hover:text-theme-primary text-sm transition-all duration-200 hover:translate-x-1 transform hover-glow"
             >
               🎓 Formation
             </NuxtLink>
             <a
               href="mailto:votre.email@example.com"
-              class="block text-gray-400 hover:text-white text-sm transition-colors duration-200 hover:translate-x-1 transform"
+              class="block text-theme-muted hover:text-theme-primary text-sm transition-all duration-200 hover:translate-x-1 transform hover-glow"
             >
               📧 Contact
             </a>
@@ -90,9 +91,10 @@
 
         <!-- Colonne 3: Réseaux sociaux -->
         <div>
-          <h3 class="text-white font-semibold mb-4 flex items-center">
+          <h3 class="text-theme-primary font-semibold mb-4 flex items-center">
             <svg
-              class="w-5 h-5 mr-2 text-purple-400"
+              class="w-5 h-5 mr-2"
+              :style="{ color: 'var(--secondary-color)' }"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -113,10 +115,10 @@
               href="https://github.com/votre_username"
               target="_blank"
               rel="noopener noreferrer"
-              class="flex items-center text-gray-400 hover:text-white text-sm transition-all duration-200 group"
+              class="flex items-center text-theme-muted hover:text-theme-primary text-sm transition-all duration-200 group"
             >
               <div
-                class="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center mr-3 group-hover:bg-gray-700 transition-colors"
+                class="w-8 h-8 bg-theme-tertiary rounded-lg flex items-center justify-center mr-3 group-hover:bg-gray-700 transition-colors"
               >
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path
@@ -134,10 +136,10 @@
               href="https://linkedin.com/in/votre_username"
               target="_blank"
               rel="noopener noreferrer"
-              class="flex items-center text-gray-400 hover:text-white text-sm transition-all duration-200 group"
+              class="flex items-center text-theme-muted hover:text-theme-primary text-sm transition-all duration-200 group"
             >
               <div
-                class="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-600 transition-colors"
+                class="w-8 h-8 bg-theme-tertiary rounded-lg flex items-center justify-center mr-3 group-hover:bg-blue-600 transition-colors"
               >
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path
@@ -155,10 +157,10 @@
               href="https://instagram.com/votre_username"
               target="_blank"
               rel="noopener noreferrer"
-              class="flex items-center text-gray-400 hover:text-white text-sm transition-all duration-200 group"
+              class="flex items-center text-theme-muted hover:text-theme-primary text-sm transition-all duration-200 group"
             >
               <div
-                class="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center mr-3 group-hover:bg-gradient-to-br group-hover:from-purple-500 group-hover:to-pink-500 transition-all"
+                class="w-8 h-8 bg-theme-tertiary rounded-lg flex items-center justify-center mr-3 group-hover:bg-gradient-to-br group-hover:from-purple-500 group-hover:to-pink-500 transition-all"
               >
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path
@@ -174,10 +176,10 @@
 
             <a
               href="mailto:votre.email@example.com"
-              class="flex items-center text-gray-400 hover:text-white text-sm transition-all duration-200 group"
+              class="flex items-center text-theme-muted hover:text-theme-primary text-sm transition-all duration-200 group"
             >
               <div
-                class="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center mr-3 group-hover:bg-red-600 transition-colors"
+                class="w-8 h-8 bg-theme-tertiary rounded-lg flex items-center justify-center mr-3 group-hover:bg-red-600 transition-colors"
               >
                 <svg
                   class="w-4 h-4"
@@ -203,11 +205,16 @@
       </div>
 
       <!-- Séparateur -->
-      <div class="border-t border-gray-800 pt-8">
+      <div class="border-t border-theme pt-8">
         <div class="flex flex-col md:flex-row justify-between items-center">
           <!-- Copyright -->
-          <div class="flex items-center text-gray-500 text-sm mb-4 md:mb-0">
-            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+          <div class="flex items-center text-theme-muted text-sm mb-4 md:mb-0">
+            <svg 
+              class="w-4 h-4 mr-2" 
+              :style="{ color: 'var(--accent-color)' }"
+              fill="currentColor" 
+              viewBox="0 0 24 24"
+            >
               <path
                 d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
               />
@@ -217,18 +224,20 @@
               href="https://nuxt.com"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-green-400 hover:text-green-300 ml-1 font-medium"
+              class="hover:text-theme-primary ml-1 font-medium transition-colors"
+              :style="{ color: 'var(--accent-color)' }"
             >
               Nuxt.js
             </a>
           </div>
 
           <!-- Informations techniques -->
-          <div class="flex items-center space-x-6 text-gray-500 text-xs">
+          <div class="flex items-center space-x-6 text-theme-muted text-xs">
             <!-- Version -->
             <div class="flex items-center">
               <div
-                class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"
+                class="w-2 h-2 rounded-full mr-2 animate-pulse"
+                :style="{ backgroundColor: 'var(--accent-color)' }"
               ></div>
               <span>v2.0.0</span>
             </div>
@@ -273,11 +282,11 @@
 
         <!-- Liens légaux -->
         <div
-          class="flex flex-wrap justify-center mt-6 space-x-6 text-gray-500 text-xs"
+          class="flex flex-wrap justify-center mt-6 space-x-6 text-theme-muted text-xs"
         >
           <button
             @click="scrollToTop"
-            class="hover:text-white transition-colors cursor-pointer flex items-center"
+            class="hover:text-theme-primary transition-colors cursor-pointer flex items-center hover-glow"
           >
             <svg
               class="w-3 h-3 mr-1"
@@ -297,13 +306,13 @@
 
           <span class="hidden md:inline">•</span>
 
-          <a href="#" class="hover:text-white transition-colors">
+          <a href="#" class="hover:text-theme-primary transition-colors hover-glow">
             Mentions légales
           </a>
 
           <span class="hidden md:inline">•</span>
 
-          <a href="#" class="hover:text-white transition-colors">
+          <a href="#" class="hover:text-theme-primary transition-colors hover-glow">
             Politique de confidentialité
           </a>
 
@@ -311,7 +320,7 @@
 
           <button
             @click="showSiteInfo = !showSiteInfo"
-            class="hover:text-white transition-colors"
+            class="hover:text-theme-primary transition-colors hover-glow"
           >
             Infos techniques
           </button>
@@ -328,11 +337,12 @@
         >
           <div
             v-if="showSiteInfo"
-            class="mt-6 bg-gray-800/50 rounded-lg p-4 border border-gray-700"
+            class="mt-6 bg-theme-tertiary/50 rounded-lg p-4 border border-theme backdrop-blur-sm"
           >
-            <h4 class="text-white font-semibold mb-3 flex items-center">
+            <h4 class="text-theme-primary font-semibold mb-3 flex items-center">
               <svg
-                class="w-4 h-4 mr-2 text-blue-400"
+                class="w-4 h-4 mr-2"
+                :style="{ color: 'var(--primary-color)' }"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -349,33 +359,65 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
               <div>
-                <h5 class="text-gray-300 font-medium mb-2">Technologies</h5>
-                <ul class="text-gray-400 space-y-1">
+                <h5 class="text-theme-secondary font-medium mb-2">Technologies</h5>
+                <ul class="text-theme-muted space-y-1">
                   <li>• Nuxt.js {{ nuxtVersion }}</li>
                   <li>• Vue.js {{ vueVersion }}</li>
                   <li>• Tailwind CSS</li>
                   <li>• TypeScript</li>
+                  <li>• Système de thèmes CSS</li>
                 </ul>
               </div>
 
               <div>
-                <h5 class="text-gray-300 font-medium mb-2">Performance</h5>
-                <ul class="text-gray-400 space-y-1">
+                <h5 class="text-theme-secondary font-medium mb-2">Performance</h5>
+                <ul class="text-theme-muted space-y-1">
                   <li>• Score Lighthouse: 98/100</li>
                   <li>• Temps de chargement: {{ loadTime }}ms</li>
                   <li>• Bundle size: ~150KB</li>
                   <li>• PWA Ready</li>
+                  <li>• SEO Optimisé</li>
                 </ul>
               </div>
 
               <div>
-                <h5 class="text-gray-300 font-medium mb-2">Fonctionnalités</h5>
-                <ul class="text-gray-400 space-y-1">
+                <h5 class="text-theme-secondary font-medium mb-2">Fonctionnalités</h5>
+                <ul class="text-theme-muted space-y-1">
                   <li>• Design responsive</li>
-                  <li>• Mode sombre</li>
-                  <li>• Animations CSS</li>
-                  <li>• SEO optimisé</li>
+                  <li>• Thèmes personnalisés</li>
+                  <li>• Animations fluides</li>
+                  <li>• Mode hors-ligne</li>
+                  <li>• Particules animées</li>
                 </ul>
+              </div>
+            </div>
+
+            <!-- Informations sur le thème actuel -->
+            <div class="mt-4 pt-4 border-t border-theme">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <div 
+                    class="w-3 h-3 rounded-full mr-2" 
+                    :style="{ backgroundColor: 'var(--primary-color)' }"
+                  ></div>
+                  <span class="text-theme-secondary text-sm">
+                    Thème CSS actif avec variables personnalisables
+                  </span>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <div 
+                    class="w-2 h-2 rounded-full" 
+                    :style="{ backgroundColor: 'var(--primary-color)' }"
+                  ></div>
+                  <div 
+                    class="w-2 h-2 rounded-full" 
+                    :style="{ backgroundColor: 'var(--secondary-color)' }"
+                  ></div>
+                  <div 
+                    class="w-2 h-2 rounded-full" 
+                    :style="{ backgroundColor: 'var(--accent-color)' }"
+                  ></div>
+                </div>
               </div>
             </div>
           </div>
@@ -440,6 +482,7 @@ onMounted(() => {
     font-size: 1.5rem;
   }
 }
+
 /* Transition pour le panneau d'infos */
 .max-h-0 {
   max-height: 0;
