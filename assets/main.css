@@ -3,22 +3,33 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Import de la police Google Fonts (optionnel) */
+/* Import des polices Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap');
 
-/* Variables CSS personnalisées */
+/* Variables CSS personnalisées - Thème par défaut */
 :root {
+  /* Variables de base qui seront surchargées par le thème actif */
   --primary-color: #3b82f6;
   --secondary-color: #8b5cf6;
   --accent-color: #10b981;
-  --background-dark: #000000;
-  --background-light: #111827;
+  --background-primary: #000000;
+  --background-secondary: #111827;
+  --background-tertiary: #1f2937;
   --text-primary: #ffffff;
   --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
   --border-color: #374151;
   --gradient-primary: linear-gradient(135deg, #3b82f6, #8b5cf6);
   --gradient-accent: linear-gradient(135deg, #10b981, #3b82f6);
+  --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-card: linear-gradient(145deg, #1f2937, #111827);
   --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.3);
+  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 20px 40px rgba(59, 130, 246, 0.2);
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* Configuration de base */
@@ -30,24 +41,26 @@
 
 html {
   scroll-behavior: smooth;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-family);
 }
 
 body {
-  background-color: var(--background-dark);
+  background-color: var(--background-primary);
   color: var(--text-primary);
   line-height: 1.6;
   font-size: 16px;
   overflow-x: hidden;
+  font-family: var(--font-family);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Scrollbar personnalisée */
+/* Scrollbar personnalisée avec thème */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background-light);
+  background: var(--background-secondary);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -62,47 +75,69 @@ body {
 /* Sélection de texte personnalisée */
 ::selection {
   background-color: var(--primary-color);
-  color: white;
+  color: var(--text-primary);
 }
 
 ::-moz-selection {
   background-color: var(--primary-color);
-  color: white;
+  color: var(--text-primary);
 }
 
-/* Classes utilitaires personnalisées */
-@layer utilities {
-  .text-gradient {
-    @apply bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent;
-  }
-  
-  .text-gradient-green {
-    @apply bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent;
-  }
-  
-  .bg-glass {
-    @apply bg-gray-900/50 backdrop-blur-sm border border-gray-800;
-  }
-  
-  .bg-glass-hover {
-    @apply hover:bg-gray-800/50 hover:border-gray-700;
-  }
-  
-  .btn-primary {
-    @apply px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200 transform hover:scale-105 inline-flex items-center justify-center font-medium;
-  }
-  
-  .btn-secondary {
-    @apply px-6 py-3 border border-gray-600 text-gray-300 rounded-lg hover:border-gray-500 hover:text-white transition-all duration-200 inline-flex items-center justify-center font-medium;
-  }
-  
-  .card {
-    @apply bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-gray-800 hover:border-gray-700 transition-all duration-300;
-  }
-  
-  .card-hover {
-    @apply hover:transform hover:scale-[1.02] hover:shadow-xl;
-  }
+/* Classes utilitaires personnalisées avec variables de thème */
+.bg-theme-primary {
+  background-color: var(--background-primary);
+}
+
+.bg-theme-secondary {
+  background-color: var(--background-secondary);
+}
+
+.bg-theme-tertiary {
+  background-color: var(--background-tertiary);
+}
+
+.text-theme-primary {
+  color: var(--text-primary);
+}
+
+.text-theme-secondary {
+  color: var(--text-secondary);
+}
+
+.text-theme-muted {
+  color: var(--text-muted);
+}
+
+.border-theme {
+  border-color: var(--border-color);
+}
+
+.gradient-primary {
+  background: var(--gradient-primary);
+}
+
+.gradient-accent {
+  background: var(--gradient-accent);
+}
+
+.gradient-hero {
+  background: var(--gradient-hero);
+}
+
+.gradient-card {
+  background: var(--gradient-card);
+}
+
+.shadow-theme-glow {
+  box-shadow: var(--shadow-glow);
+}
+
+.shadow-theme-card {
+  box-shadow: var(--shadow-card);
+}
+
+.shadow-theme-hover {
+  box-shadow: var(--shadow-hover);
 }
 
 /* Animations personnalisées */
@@ -141,10 +176,10 @@ body {
 
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    box-shadow: var(--shadow-glow);
   }
   50% {
-    box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+    box-shadow: var(--shadow-hover);
   }
 }
 
@@ -154,6 +189,15 @@ body {
   }
   50% {
     transform: translateY(-10px);
+  }
+}
+
+@keyframes neon-flicker {
+  0%, 100% {
+    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+  }
+  50% {
+    text-shadow: 0 0 2px currentColor, 0 0 5px currentColor, 0 0 8px currentColor;
   }
 }
 
@@ -178,24 +222,39 @@ body {
   animation: float 3s ease-in-out infinite;
 }
 
-/* Effets de hover spéciaux */
+.animate-neon-flicker {
+  animation: neon-flicker 1.5s ease-in-out infinite;
+}
+
+/* Effets de hover spéciaux avec thème */
 .hover-glow {
   transition: all 0.3s ease;
 }
 
 .hover-glow:hover {
-  box-shadow: var(--shadow-glow);
+  box-shadow: var(--shadow-hover);
   transform: translateY(-2px);
 }
 
-/* Styles pour les liens de navigation */
+.hover-theme-glow:hover {
+  box-shadow: var(--shadow-glow);
+  border-color: var(--primary-color);
+}
+
+/* Styles pour les liens de navigation avec thème */
 .nav-link {
-  @apply relative text-gray-300 hover:text-white transition-colors duration-200;
+  @apply relative transition-colors duration-200;
+  color: var(--text-secondary);
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
 }
 
 .nav-link::after {
   content: '';
-  @apply absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300;
+  @apply absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300;
+  background-color: var(--primary-color);
 }
 
 .nav-link:hover::after {
@@ -203,35 +262,78 @@ body {
 }
 
 .nav-link.router-link-active {
-  @apply text-white;
+  color: var(--text-primary);
 }
 
 .nav-link.router-link-active::after {
   @apply w-full;
 }
 
-/* Styles pour les cartes de compétences */
+/* Styles pour les cartes de compétences avec thème */
 .skill-card {
-  @apply bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 border border-gray-800 transition-all duration-300;
+  @apply rounded-xl p-6 border transition-all duration-300;
+  background: var(--gradient-card);
+  border-color: var(--border-color);
 }
 
 .skill-card:hover {
-  @apply border-blue-500/50 transform scale-105;
-  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+  border-color: var(--primary-color);
+  @apply transform scale-105;
+  box-shadow: var(--shadow-hover);
 }
 
-/* Timeline styles */
+/* Timeline styles avec thème */
 .timeline-item {
   @apply relative pl-20 pb-12;
 }
 
 .timeline-item::before {
   content: '';
-  @apply absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-purple-500;
+  @apply absolute left-8 top-0 bottom-0 w-0.5;
+  background: var(--gradient-primary);
 }
 
 .timeline-dot {
-  @apply absolute left-6 w-4 h-4 bg-blue-500 rounded-full border-4 border-black z-10;
+  @apply absolute left-6 w-4 h-4 rounded-full border-4 z-10;
+  background-color: var(--primary-color);
+  border-color: var(--background-primary);
+}
+
+/* Styles pour les cartes de projet avec thème */
+.project-card {
+  @apply rounded-2xl border transition-all duration-300;
+  background: var(--gradient-card);
+  border-color: var(--border-color);
+}
+
+.project-card:hover {
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-4px);
+}
+
+/* Boutons avec thème */
+.btn-theme-primary {
+  background: var(--gradient-primary);
+  color: var(--text-primary);
+  @apply px-6 py-3 rounded-lg font-medium transition-all duration-300;
+}
+
+.btn-theme-primary:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.btn-theme-secondary {
+  background: var(--background-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  @apply px-6 py-3 rounded-lg font-medium transition-all duration-300;
+}
+
+.btn-theme-secondary:hover {
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-glow);
 }
 
 /* Responsive design amélioré */
@@ -249,23 +351,43 @@ body {
   }
 }
 
-/* Effets de particules animées */
+/* Effets de particules animées avec thème */
 .particle {
   @apply absolute rounded-full opacity-30;
   animation: float 6s ease-in-out infinite;
+  background-color: var(--primary-color);
 }
 
 .particle:nth-child(2) {
   animation-delay: -2s;
+  background-color: var(--secondary-color);
 }
 
 .particle:nth-child(3) {
   animation-delay: -4s;
+  background-color: var(--accent-color);
 }
 
 /* Mode sombre forcé */
 .dark {
   color-scheme: dark;
+}
+
+/* Thèmes spéciaux - Classes CSS pour les effets spécifiques */
+.theme-cyberpunk .text-glow {
+  text-shadow: 0 0 10px currentColor;
+}
+
+.theme-cyberpunk .border-glow {
+  box-shadow: 0 0 10px var(--primary-color);
+}
+
+.theme-forest .nature-gradient {
+  background: linear-gradient(135deg, #22c55e, #16a34a, #15803d);
+}
+
+.theme-ocean .wave-effect {
+  background: linear-gradient(135deg, #0ea5e9, #0284c7, #0369a1);
 }
 
 /* Amélioration de l'accessibilité */
@@ -279,9 +401,11 @@ body {
   }
 }
 
-/* Focus styles pour l'accessibilité */
+/* Focus styles pour l'accessibilité avec thème */
 *:focus {
-  @apply outline-none ring-2 ring-blue-500 ring-offset-2 ring-offset-black;
+  @apply outline-none ring-2 ring-offset-2;
+  ring-color: var(--primary-color);
+  ring-offset-color: var(--background-primary);
 }
 
 /* Styles pour les images */
@@ -311,4 +435,37 @@ img {
   .bg-black, .bg-gray-900 {
     @apply bg-white text-black;
   }
+}
+
+/* Classes utilitaires pour les transitions de thème */
+.theme-transition {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Loader pour les changements de thème */
+.theme-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--background-primary);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-color);
+  border-top: 3px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

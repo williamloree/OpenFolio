@@ -1,7 +1,7 @@
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss', "@nuxt/icon"],
+  modules: ["@nuxtjs/tailwindcss", "@nuxt/icon"],
   nitro: {
     preset: "node-server",
   },
@@ -15,6 +15,19 @@ export default defineNuxtConfig({
           content: "Portfolio open source administrable via JSON",
         },
       ],
+    },
+  },
+  plugins: ["~/plugins/debug-theme.client.ts", "~/plugins/theme.client.ts"],
+  runtimeConfig: {
+    public: {
+      // Choisir le thème ici : 'default', 'cyberpunk', 'forest', 'ocean'
+      selectedTheme: "cyberpunk",
+      themeOptions: {
+        forceTheme: true,
+        enableAnimations: true,
+        enableParticles: true,
+        devMode: true,
+      },
     },
   },
 });

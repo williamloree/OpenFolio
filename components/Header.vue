@@ -52,7 +52,7 @@
             to="/formations"
             class="text-gray-300 hover:text-white transition-colors duration-200 relative group"
           >
-            <span>Formation</span>
+            <span>Formations</span>
             <div
               class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"
             ></div>
@@ -145,7 +145,7 @@
               class="text-gray-300 hover:text-white transition-colors duration-200 py-2"
               @click="closeMobileMenu"
             >
-              Formation
+              Formations
             </NuxtLink>
 
             <a
