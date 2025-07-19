@@ -4,9 +4,16 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss", "@nuxt/icon"],
   nitro: {
     preset: "node-server",
+    routeRules: {
+      "/data/**": {
+        headers: {
+          "Cache-Control": "max-age=300", // 5 minutes
+        },
+      },
+    },
   },
   // Choisir le thème ici : 'default', 'cyberpunk', 'forest', 'ocean'
-  css: ["~/assets/themes/default.css"],
+  css: ["~/assets/themes/ocean.css"],
   app: {
     head: {
       title: "Portfolio Open Source",
@@ -14,6 +21,26 @@ export default defineNuxtConfig({
         {
           name: "description",
           content: "Portfolio open source administrable via JSON",
+        },
+      ],
+      link: [
+        {
+          rel: "preload",
+          href: "/data/projects.json",
+          as: "fetch",
+          crossorigin: "anonymous",
+        },
+        {
+          rel: "preload",
+          href: "/data/experiences.json",
+          as: "fetch",
+          crossorigin: "anonymous",
+        },
+        {
+          rel: "preload",
+          href: "/data/profile.json",
+          as: "fetch",
+          crossorigin: "anonymous",
         },
       ],
     },

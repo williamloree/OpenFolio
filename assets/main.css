@@ -402,11 +402,11 @@ body {
 }
 
 /* Focus styles pour l'accessibilité avec thème */
-*:focus {
+/* *:focus {
   @apply outline-none ring-2 ring-offset-2;
   ring-color: var(--primary-color);
   ring-offset-color: var(--background-primary);
-}
+} */
 
 /* Styles pour les images */
 img {

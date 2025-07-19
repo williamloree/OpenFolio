@@ -1,11 +1,11 @@
 <template>
-  <div class="min-h-screen text-theme-primary">
+  <div class="min-h-screen text-theme-primary my-10">
     <div class="max-w-4xl mx-auto px-6 py-12">
       <!-- En-tête de section -->
       <div class="text-center mb-16">
         <h1 class="text-4xl md:text-5xl font-bold mb-4 gradient-primary bg-clip-text text-transparent" 
             style="background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-          Ma Formation
+          Mes Formations
         </h1>
         <p class="text-theme-muted text-lg max-w-2xl mx-auto">
           Mon parcours académique et les certifications qui ont façonné mes compétences

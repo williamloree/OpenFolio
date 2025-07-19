@@ -1,6 +1,6 @@
 <template>
   <div
-    class="text-theme-primary flex flex-col items-center justify-center px-6 mt-10"
+    class="text-theme-primary flex flex-col items-center justify-center px-6 my-10"
   >
     <!-- Loading state -->
     <div v-if="loading" class="text-center">

@@ -268,11 +268,11 @@ body {
 }
 
 /* Focus pour l'accessibilité */
-*:focus {
+/* *:focus {
   @apply outline-none ring-2 ring-offset-2;
   ring-color: var(--primary-color);
   ring-offset-color: var(--background-primary);
-}
+} */
 
 /* Transition globale */
 .theme-transition {

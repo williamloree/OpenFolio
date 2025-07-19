@@ -1,6 +1,6 @@
 <template>
-  <div class="min-h-screen text-theme-primary">
-    <div class="max-w-7xl mx-auto px-6 py-12">
+  <div class="min-h-screen text-theme-primary my-10">
+    <div class="max-w-7xl mx-auto px-6 py-12 ">
       <!-- En-tête de section -->
       <div class="text-center mb-16">
         <h1
@@ -20,15 +20,24 @@
         </p>
       </div>
 
-      <!-- Loading state -->
-      <div v-if="loading" class="flex justify-center items-center py-20">
+      <!-- Loading state amélioré -->
+      <div v-if="loading || !isMounted" class="flex flex-col justify-center items-center py-20">
         <div
-          class="animate-spin rounded-full h-12 w-12 border-b-2 border-theme"
+          class="animate-spin rounded-full h-12 w-12 border-b-2 border-theme mb-4"
           :style="{ borderColor: 'var(--primary-color)' }"
         ></div>
+        <p class="text-theme-secondary">{{ loadingMessage }}</p>
+        
+        <!-- Timeout fallback -->
+        <div v-if="showTimeoutWarning" class="mt-4 text-center">
+          <p class="text-orange-400 text-sm mb-2">Le chargement prend plus de temps que prévu...</p>
+          <button @click="forceReload" class="btn-theme-secondary text-sm">
+            Réessayer
+          </button>
+        </div>
       </div>
 
-      <!-- Error state -->
+      <!-- Error state amélioré -->
       <div v-else-if="error" class="text-center py-20">
         <div class="text-red-400 mb-4">
           <svg
@@ -45,12 +54,25 @@
             />
           </svg>
           <h3 class="text-xl font-bold mb-2">Erreur de chargement</h3>
-          <p class="text-theme-muted">{{ error }}</p>
+          <p class="text-theme-muted mb-4">{{ error }}</p>
+          <button @click="retry" class="btn-theme-primary">
+            <Icon name="ph:arrow-clockwise" class="w-4 h-4 mr-2" />
+            Réessayer
+          </button>
+        </div>
+      </div>
+
+      <!-- Fallback si pas de projets -->
+      <div v-else-if="!data?.projects?.length" class="text-center py-20">
+        <div class="text-theme-muted mb-4">
+          <Icon name="ph:folder-open" class="w-16 h-16 mx-auto mb-4" />
+          <h3 class="text-xl font-bold mb-2">Aucun projet trouvé</h3>
+          <p>Les projets seront bientôt disponibles.</p>
         </div>
       </div>
 
       <!-- Contenu principal -->
-      <div v-else-if="data?.projects?.length">
+      <div v-else>
         <!-- Filtres -->
         <div class="flex flex-wrap justify-center gap-4 mb-12">
           <button
@@ -60,8 +82,8 @@
             :class="[
               'px-6 py-3 rounded-full transition-all duration-300 font-medium',
               activeFilter === filter.id
-                ? 'gradient-primary text-white shadow-theme-glow transform scale-105'
-                : 'bg-theme-secondary text-theme-secondary hover:bg-theme-tertiary hover:text-theme-primary',
+                ? 'bg-theme-primary text-white shadow-theme-glow'
+                : 'bg-theme-secondary text-theme-secondary hover:bg-theme-tertiary hover:text-theme-primary'
             ]"
           >
             <span class="mr-2">{{ filter.icon }}</span>
@@ -70,169 +92,98 @@
         </div>
 
         <!-- Grille de projets -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           <TransitionGroup
             name="project"
-            enter-active-class="transition duration-500 ease-out"
-            enter-from-class="opacity-0 scale-95 translate-y-8"
-            enter-to-class="opacity-100 scale-100 translate-y-0"
-            leave-active-class="transition duration-300 ease-in"
-            leave-from-class="opacity-100 scale-100"
-            leave-to-class="opacity-0 scale-95"
-            move-class="transition duration-300 ease-in-out"
+            tag="div"
+            class="contents"
+            @before-enter="onBeforeEnter"
+            @enter="onEnter"
           >
             <div
-              v-for="project in filteredProjects"
+              v-for="(project, index) in filteredProjects"
               :key="project.id"
-              class="group card-theme overflow-hidden hover-glow transition-all duration-300 hover:transform hover:scale-105 cursor-pointer"
-              @click="openProjectModal(project)"
+              :data-index="index"
+              class="card-theme p-6 hover:scale-105 transition-all duration-300 cursor-pointer group"
+              @click="selectedProject = project"
             >
               <!-- Image du projet -->
-              <div class="relative h-48 overflow-hidden">
+              <div class="relative mb-4 overflow-hidden rounded-lg">
                 <img
-                  :src="project.image"
+                  :src="project.image || '/images/placeholder-project.jpg'"
                   :alt="project.title"
-                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                  loading="lazy"
+                  @error="handleImageError"
                 />
-                <div
-                  class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"
-                ></div>
-
-                <!-- Badge de statut -->
-                <div class="absolute top-4 right-4">
-                  <span
-                    class="px-3 py-1 rounded-full text-xs font-medium bg-theme-tertiary/80 text-theme-secondary border border-theme"
-                  >
-                    {{ getStatusText(project.status) }}
-                  </span>
-                </div>
-
-                <!-- Overlay avec actions -->
-                <div
-                  class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
-                >
-                  <div class="flex space-x-3">
-                    <button
-                      v-if="project.liveUrl"
-                      @click.stop="openUrl(project.liveUrl)"
-                      class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
-                      title="Voir le projet"
-                    >
-                      <svg
-                        class="w-5 h-5 text-white"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                        />
-                      </svg>
-                    </button>
-                    <button
-                      v-if="project.githubUrl"
-                      @click.stop="openUrl(project.githubUrl)"
-                      class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
-                      title="Code source"
-                    >
-                      <svg
-                        class="w-5 h-5 text-white"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                        />
-                      </svg>
-                    </button>
-                  </div>
+                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <Icon name="ph:eye" class="w-8 h-8 text-white" />
                 </div>
               </div>
 
-              <!-- Contenu de la carte -->
-              <div class="p-6">
-                <div class="flex items-center justify-between mb-3">
-                  <h3
-                    class="text-xl font-bold text-theme-primary group-hover:text-theme-secondary transition-colors"
-                  >
+              <!-- Contenu du projet -->
+              <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-xl font-bold text-theme-primary group-hover:text-theme-secondary transition-colors">
                     {{ project.title }}
                   </h3>
-                  <div class="flex items-center text-theme-muted text-sm">
-                    <svg
-                      class="w-4 h-4 mr-1"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V6a2 2 0 012-2h4a2 2 0 012 2v1m-6 0h8a2 2 0 012 2v9a2 2 0 01-2 2H8a2 2 0 01-2-2V9a2 2 0 012-2z"
-                      />
-                    </svg>
-                    {{ project.year }}
-                  </div>
+                  <span
+                    :class="[
+                      'px-2 py-1 rounded-full text-xs font-medium',
+                      project.status === 'completed' ? 'bg-green-500/20 text-green-400' :
+                      project.status === 'in-progress' ? 'bg-yellow-500/20 text-yellow-400' :
+                      'bg-blue-500/20 text-blue-400'
+                    ]"
+                  >
+                    {{ getStatusLabel(project.status) }}
+                  </span>
                 </div>
 
-                <p
-                  class="text-theme-secondary text-sm mb-4 leading-relaxed line-clamp-3"
-                >
+                <p class="text-theme-muted text-sm leading-relaxed">
                   {{ project.description }}
                 </p>
 
-                <!-- Technologies utilisées -->
-                <div class="flex flex-wrap gap-2 mb-4">
+                <!-- Technologies -->
+                <div class="flex flex-wrap gap-2">
                   <span
-                    v-for="tech in project.technologies.slice(0, 3)"
+                    v-for="tech in project.technologies?.slice(0, 3)"
                     :key="tech"
-                    class="px-2 py-1 rounded-md text-xs border bg-theme-tertiary/50 text-theme-secondary border-theme"
+                    class="px-2 py-1 bg-theme-tertiary text-theme-secondary rounded text-xs"
                   >
                     {{ tech }}
                   </span>
                   <span
-                    v-if="project.technologies.length > 3"
-                    class="px-2 py-1 bg-theme-tertiary/50 text-theme-muted rounded-md text-xs border border-theme"
+                    v-if="project.technologies?.length > 3"
+                    class="px-2 py-1 bg-theme-tertiary text-theme-muted rounded text-xs"
                   >
                     +{{ project.technologies.length - 3 }}
                   </span>
                 </div>
 
-                <!-- Métriques du projet -->
-                <div
-                  v-if="project.metrics"
-                  class="grid grid-cols-3 gap-4 pt-4 border-t border-theme"
-                >
-                  <div class="text-center">
-                    <div
-                      class="text-lg font-bold"
-                      :style="{ color: 'var(--primary-color)' }"
-                    >
-                      {{ project.metrics.duration }}
-                    </div>
-                    <div class="text-xs text-theme-muted">Durée</div>
-                  </div>
-                  <div class="text-center">
-                    <div
-                      class="text-lg font-bold"
-                      :style="{ color: 'var(--accent-color)' }"
-                    >
-                      {{ project.metrics.team }}
-                    </div>
-                    <div class="text-xs text-theme-muted">Équipe</div>
-                  </div>
-                  <div class="text-center">
-                    <div
-                      class="text-lg font-bold"
-                      :style="{ color: 'var(--secondary-color)' }"
-                    >
-                      {{ project.metrics.impact }}
-                    </div>
-                    <div class="text-xs text-theme-muted">Impact</div>
-                  </div>
+                <!-- Actions -->
+                <div class="flex space-x-3 pt-2">
+                  <a
+                    v-if="project.demoUrl"
+                    :href="project.demoUrl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex-1 btn-theme-primary text-center text-sm py-2"
+                    @click.stop
+                  >
+                    <Icon name="ph:eye" class="w-4 h-4 mr-1" />
+                    Demo
+                  </a>
+                  <a
+                    v-if="project.githubUrl"
+                    :href="project.githubUrl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex-1 btn-theme-secondary text-center text-sm py-2"
+                    @click.stop
+                  >
+                    <Icon name="ph:github-logo" class="w-4 h-4 mr-1" />
+                    Code
+                  </a>
                 </div>
               </div>
             </div>
@@ -296,313 +247,95 @@
             Je serais ravi de discuter de votre prochain projet et de voir
             comment nous pouvons créer quelque chose d'extraordinaire ensemble.
           </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="mailto:votre.email@example.com"
-              class="btn-theme-primary hover-glow transform hover:scale-105 inline-flex items-center justify-center font-medium"
-            >
-              <svg
-                class="w-5 h-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                />
-              </svg>
-              Discutons de votre projet
-            </a>
-            <NuxtLink
-              to="/experiences"
-              class="btn-theme-secondary hover-glow inline-flex items-center justify-center font-medium"
-            >
-              <svg
-                class="w-5 h-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 00-2 2h-4a2 2 0 00-2-2V6m8 0V8a2 2 0 01-2 2H8a2 2 0 01-2-2V6"
-                />
-              </svg>
-              Voir mes expériences
-            </NuxtLink>
-          </div>
-        </div>
-      </div>
-
-      <!-- État vide -->
-      <div v-else class="text-center py-20">
-        <div class="text-theme-muted mb-4">
-          <svg
-            class="w-16 h-16 mx-auto mb-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+          <NuxtLink to="/contact" class="btn-theme-primary hover-glow transform hover:scale-105 inline-flex items-center justify-center"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-            />
-          </svg>
-          <h3 class="text-xl font-bold mb-2 text-theme-primary">
-            Aucun projet trouvé
-          </h3>
-          <p class="text-theme-muted">
-            Les projets seront bientôt disponibles.
-          </p>
+            <Icon name="ph:chat-circle" class="w-5 h-5 mr-2" />
+            Discutons de votre projet
+          </NuxtLink>
         </div>
       </div>
     </div>
-  </div>
-  <!-- Modal de détail du projet -->
-  <Transition
-    enter-active-class="transition duration-300 ease-out"
-    enter-from-class="opacity-0"
-    enter-to-class="opacity-100"
-    leave-active-class="transition duration-200 ease-in"
-    leave-from-class="opacity-100"
-    leave-to-class="opacity-0"
-  >
-    <div
-      v-if="selectedProject"
-      class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 overflow-y-auto"
-      @click="closeProjectModal"
-    >
-      <div class="flex items-center justify-center min-h-full p-4">
-        <Transition
-          enter-active-class="transition duration-300 ease-out"
-          enter-from-class="opacity-0 scale-95 translate-y-4"
-          enter-to-class="opacity-100 scale-100 translate-y-0"
-          leave-active-class="transition duration-200 ease-in"
-          leave-from-class="opacity-100 scale-100 translate-y-0"
-          leave-to-class="opacity-0 scale-95 translate-y-4"
+
+    <!-- Modal de projet (si sélectionné) -->
+    <Teleport to="body">
+      <div
+        v-if="selectedProject"
+        class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+        @click="selectedProject = null"
+      >
+        <div
+          class="bg-theme-secondary rounded-2xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+          @click.stop
         >
-          <div
-            v-if="selectedProject"
-            class="bg-theme-secondary rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden border border-theme relative"
-            @click.stop
-          >
-            <!-- Header du modal -->
-            <div class="relative">
-              <img
-                :src="selectedProject.image"
-                :alt="selectedProject.title"
-                class="w-full h-64 object-cover rounded-t-2xl"
-              />
-              <div
-                class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-t-2xl"
-              ></div>
-              <button
-                @click="closeProjectModal"
-                class="absolute top-4 right-4 w-10 h-10 bg-black/50 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors z-10"
-              >
-                <svg
-                  class="w-5 h-5 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+          <div class="flex justify-between items-start mb-4">
+            <h2 class="text-2xl font-bold text-theme-primary">{{ selectedProject.title }}</h2>
+            <button
+              @click="selectedProject = null"
+              class="text-theme-muted hover:text-theme-primary"
+            >
+              <Icon name="ph:x" class="w-6 h-6" />
+            </button>
+          </div>
+          
+          <img
+            :src="selectedProject.image || '/images/placeholder-project.jpg'"
+            :alt="selectedProject.title"
+            class="w-full h-64 object-cover rounded-lg mb-4"
+          />
+          
+          <p class="text-theme-secondary mb-4">{{ selectedProject.longDescription || selectedProject.description }}</p>
+          
+          <div class="space-y-4">
+            <div>
+              <h3 class="font-semibold text-theme-primary mb-2">Technologies utilisées</h3>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  v-for="tech in selectedProject.technologies"
+                  :key="tech"
+                  class="px-3 py-1 bg-theme-tertiary text-theme-secondary rounded-full text-sm"
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            </div>
-
-            <!-- Contenu du modal avec scroll interne -->
-            <div class="overflow-y-auto max-h-[calc(90vh-16rem)]">
-              <div class="p-8">
-                <div class="flex items-center justify-between mb-6">
-                  <h2 class="text-3xl font-bold text-theme-primary">
-                    {{ selectedProject.title }}
-                  </h2>
-                  <span
-                    class="px-4 py-2 rounded-full text-sm font-medium bg-theme-tertiary/50 text-theme-secondary border border-theme"
-                  >
-                    {{ getStatusText(selectedProject.status) }}
-                  </span>
-                </div>
-
-                <p class="text-theme-secondary text-lg mb-8 leading-relaxed">
-                  {{
-                    selectedProject.fullDescription ||
-                    selectedProject.description
-                  }}
-                </p>
-
-                <!-- Technologies complètes -->
-                <div class="mb-8">
-                  <h3 class="text-xl font-semibold text-theme-primary mb-4">
-                    Technologies utilisées
-                  </h3>
-                  <div class="flex flex-wrap gap-3">
-                    <span
-                      v-for="tech in selectedProject.technologies"
-                      :key="tech"
-                      class="px-4 py-2 rounded-lg text-sm border bg-theme-tertiary/50 text-theme-secondary border-theme"
-                    >
-                      {{ tech }}
-                    </span>
-                  </div>
-                </div>
-
-                <!-- Fonctionnalités -->
-                <div v-if="selectedProject.features?.length" class="mb-8">
-                  <h3 class="text-xl font-semibold text-theme-primary mb-4">
-                    Fonctionnalités clés
-                  </h3>
-                  <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <li
-                      v-for="feature in selectedProject.features"
-                      :key="feature"
-                      class="flex items-center text-theme-secondary"
-                    >
-                      <svg
-                        class="w-5 h-5 mr-3 flex-shrink-0"
-                        :style="{ color: 'var(--accent-color)' }"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                      {{ feature }}
-                    </li>
-                  </ul>
-                </div>
-
-                <!-- Métriques détaillées -->
-                <div v-if="selectedProject.metrics" class="mb-8">
-                  <h3 class="text-xl font-semibold text-theme-primary mb-4">
-                    Métriques du projet
-                  </h3>
-                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div
-                      class="bg-theme-tertiary/50 rounded-lg p-4 text-center"
-                    >
-                      <div
-                        class="text-2xl font-bold mb-1"
-                        :style="{ color: 'var(--primary-color)' }"
-                      >
-                        {{ selectedProject.metrics.duration }}
-                      </div>
-                      <div class="text-theme-muted text-sm">
-                        Durée de développement
-                      </div>
-                    </div>
-                    <div
-                      class="bg-theme-tertiary/50 rounded-lg p-4 text-center"
-                    >
-                      <div
-                        class="text-2xl font-bold mb-1"
-                        :style="{ color: 'var(--accent-color)' }"
-                      >
-                        {{ selectedProject.metrics.team }}
-                      </div>
-                      <div class="text-theme-muted text-sm">
-                        Taille de l'équipe
-                      </div>
-                    </div>
-                    <div
-                      class="bg-theme-tertiary/50 rounded-lg p-4 text-center"
-                    >
-                      <div
-                        class="text-2xl font-bold mb-1"
-                        :style="{ color: 'var(--secondary-color)' }"
-                      >
-                        {{ selectedProject.metrics.impact }}
-                      </div>
-                      <div class="text-theme-muted text-sm">
-                        Impact/Résultat
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Actions -->
-                <div
-                  class="flex flex-col sm:flex-row gap-4 sticky bottom-0 bg-theme-secondary/95 backdrop-blur-sm p-4 -m-4 rounded-b-2xl border-t border-theme"
-                >
-                  <a
-                    v-if="selectedProject.liveUrl"
-                    :href="selectedProject.liveUrl"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn-theme-primary hover-glow transform hover:scale-105 inline-flex items-center justify-center font-medium"
-                  >
-                    <svg
-                      class="w-5 h-5 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                      />
-                    </svg>
-                    Voir le projet
-                  </a>
-                  <a
-                    v-if="selectedProject.githubUrl"
-                    :href="selectedProject.githubUrl"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn-theme-secondary hover-glow inline-flex items-center justify-center font-medium"
-                  >
-                    <svg
-                      class="w-5 h-5 mr-2"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-                      />
-                    </svg>
-                    Code source
-                  </a>
-                </div>
+                  {{ tech }}
+                </span>
               </div>
             </div>
+            
+            <div class="flex space-x-4">
+              <a
+                v-if="selectedProject.demoUrl"
+                :href="selectedProject.demoUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-theme-primary"
+              >
+                <Icon name="ph:eye" class="w-4 h-4 mr-2" />
+                Voir la démo
+              </a>
+              <a
+                v-if="selectedProject.githubUrl"
+                :href="selectedProject.githubUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-theme-secondary"
+              >
+                <Icon name="ph:github-logo" class="w-4 h-4 mr-2" />
+                Voir le code
+              </a>
+            </div>
           </div>
-        </Transition>
+        </div>
       </div>
-    </div>
-  </Transition>
+    </Teleport>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { useJson } from "~/utils/useJson";
-
 // Configuration SEO
 useHead({
   title: "Mes Projets - Portfolio",
   meta: [
     {
       name: "description",
-      content:
-        "Découvrez mes projets de développement web et applications. Réalisations en Vue.js, Nuxt.js, React et bien plus.",
+      content: "Découvrez mes projets et réalisations en développement web. Réalisations en Vue.js, Nuxt.js, React et bien plus.",
     },
     { property: "og:title", content: "Mes Projets - Portfolio" },
     {
@@ -612,226 +345,239 @@ useHead({
   ],
 });
 
-// Chargement des données depuis JSON
-const { data, error, loading } = useJson("projects.json");
+// Variables d'état
+const activeFilter = ref("all")
+const selectedProject = ref<any>(null)
+const isMounted = ref(false)
+const showDebug = ref(process.dev) // Afficher debug seulement en dev
+const loadingMessage = ref("Chargement des projets...")
+const showTimeoutWarning = ref(false)
 
-// État des filtres et modal
-const activeFilter = ref("all");
-const selectedProject = ref<any>(null);
+// Chargement des données avec retry
+const { data, error, loading, retry } = useJson("projects.json")
+
+// Timer pour afficher l'avertissement de timeout
+let timeoutTimer: NodeJS.Timeout
+
+// Force reload function
+const forceReload = () => {
+  console.log("🔄 Force reload des projets...")
+  retry()
+}
+
+// Watcher pour gérer les messages de chargement
+watch(loading, (isLoading) => {
+  if (isLoading) {
+    showTimeoutWarning.value = false
+    loadingMessage.value = "Chargement des projets..."
+    
+    // Afficher l'avertissement après 5 secondes
+    timeoutTimer = setTimeout(() => {
+      if (loading.value) {
+        showTimeoutWarning.value = true
+        loadingMessage.value = "Connexion lente détectée..."
+      }
+    }, 5000)
+  } else {
+    clearTimeout(timeoutTimer)
+    showTimeoutWarning.value = false
+  }
+})
+
+// Watcher pour débugger les changements de route
+watch(() => useRoute().path, (newPath, oldPath) => {
+  console.log(`🧭 Navigation: ${oldPath} → ${newPath}`)
+  if (newPath === '/projets' && oldPath && oldPath !== '/projets') {
+    console.log("📍 Arrivée sur /projets depuis", oldPath)
+    // Force un petit délai pour laisser la page se stabiliser
+    nextTick(() => {
+      if (!data.value && !loading.value) {
+        console.log("🔄 Relance du chargement après navigation")
+        retry()
+      }
+    })
+  }
+})
 
 // Filtres disponibles (générés dynamiquement depuis les données)
 const filters = computed(() => {
   if (!data.value?.projects?.length) {
-    return [{ id: "all", name: "Tous", icon: "🎯" }];
+    return [{ id: "all", name: "Tous", icon: "🎯" }]
   }
 
-  const categories = [...new Set(data.value.projects.map((p) => p.category))];
-  const filterMap = {
+  const categories = [...new Set(data.value.projects.map((p: any) => p.category))]
+  const filterMap: Record<string, { name: string; icon: string }> = {
     web: { name: "Applications Web", icon: "🌐" },
     mobile: { name: "Mobile", icon: "📱" },
     ecommerce: { name: "E-commerce", icon: "🛒" },
     dashboard: { name: "Dashboards", icon: "📊" },
     api: { name: "API", icon: "⚡" },
     desktop: { name: "Desktop", icon: "💻" },
-  };
+  }
 
   return [
     { id: "all", name: "Tous", icon: "🎯" },
-    ...categories.map((cat) => ({
+    ...categories.map((cat: string) => ({
       id: cat,
       name: filterMap[cat]?.name || cat,
       icon: filterMap[cat]?.icon || "📦",
     })),
-  ];
-});
+  ]
+})
 
 // Projets filtrés
 const filteredProjects = computed(() => {
-  if (!data.value?.projects?.length) return [];
+  if (!data.value?.projects?.length) return []
 
   if (activeFilter.value === "all") {
-    return data.value.projects;
+    return data.value.projects
   }
   return data.value.projects.filter(
-    (project:any) => project.category === activeFilter.value
-  );
-});
+    (project: any) => project.category === activeFilter.value
+  )
+})
 
 // Statistiques des projets
 const projectStats = computed(() => {
   if (!data.value?.projects?.length) {
-    return { total: 0, completed: 0, technologies: 0, clients: "0" };
+    return { total: 0, completed: 0, technologies: 0, clients: "0" }
   }
 
-  const projects = data.value.projects;
-  const completed = projects.filter((p:any) => p.status === "completed").length;
+  const projects = data.value.projects
+  const completed = projects.filter((p: any) => p.status === "completed").length
   const technologies = [
-    ...new Set(projects.flatMap((p:any) => p.technologies || [])),
-  ].length;
+    ...new Set(projects.flatMap((p: any) => p.technologies || []))
+  ].length
 
   return {
     total: projects.length,
     completed,
     technologies,
-    clients:
-      projects.filter((p:any) => p.clientType === "external").length || "15+",
-  };
-});
+    clients: Math.ceil(projects.length * 0.8).toString() // Simulation
+  }
+})
 
-// Fonctions utilitaires
-const getStatusText = (status: string) => {
-  const statusMap = {
+// Fonction utilitaire pour les labels de statut
+const getStatusLabel = (status: string) => {
+  const labels: Record<string, string> = {
     completed: "Terminé",
     "in-progress": "En cours",
-    planned: "Planifié",
-    paused: "En pause",
-    archived: "Archivé",
-  };
-  return statusMap[status] || status;
-};
+    planning: "Planifié"
+  }
+  return labels[status] || status
+}
 
-const openUrl = (url: string) => {
-  window.open(url, "_blank", "noopener,noreferrer");
-};
+// Gestion des erreurs d'images
+const handleImageError = (event: Event) => {
+  const img = event.target as HTMLImageElement
+  img.src = '/images/placeholder-project.jpg'
+}
 
-const openProjectModal = (project: any) => {
-  selectedProject.value = project;
-  document.body.style.overflow = "hidden";
-};
+// Animations d'entrée
+const onBeforeEnter = (el: Element) => {
+  const element = el as HTMLElement
+  element.style.opacity = '0'
+  element.style.transform = 'translateY(30px)'
+}
 
-const closeProjectModal = () => {
-  selectedProject.value = null;
-  document.body.style.overflow = "auto";
-};
+const onEnter = (el: Element, done: () => void) => {
+  const element = el as HTMLElement
+  const index = parseInt(element.dataset.index || '0')
+  
+  setTimeout(() => {
+    element.style.transition = 'all 0.4s ease-out'
+    element.style.opacity = '1'
+    element.style.transform = 'translateY(0)'
+    done()
+  }, index * 100)
+}
 
-// Cleanup au unmount
-onUnmounted(() => {
-  document.body.style.overflow = "auto";
-});
-
-// Animation au scroll
+// Lifecycle
 onMounted(() => {
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px",
-  };
+  console.log("📱 Page projets montée")
+  isMounted.value = true
+  
+  // Debug des données au montage
+  console.log("🔍 État initial:", {
+    loading: loading.value,
+    error: error.value,
+    hasData: !!data.value,
+    route: useRoute().path
+  })
+})
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("animate-fadeInUp");
-      }
-    });
-  }, observerOptions);
-
-  // Observer les cartes de projets
-  const projectCards = document.querySelectorAll(".group");
-  projectCards.forEach((card) => observer.observe(card));
-});
+onUnmounted(() => {
+  clearTimeout(timeoutTimer)
+})
 </script>
 
 <style scoped>
-/* Limitation du nombre de lignes pour la description */
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Animations pour les transitions de projets */
+/* Animations pour les projets */
 .project-enter-active,
 .project-leave-active {
-  transition: all 0.5s ease;
+  transition: all 0.4s ease;
 }
 
 .project-enter-from {
   opacity: 0;
-  transform: scale(0.95) translateY(20px);
+  transform: translateY(30px) scale(0.9);
 }
 
 .project-leave-to {
   opacity: 0;
-  transform: scale(0.95);
+  transform: translateY(-30px) scale(1.1);
 }
 
 .project-move {
+  transition: transform 0.4s ease;
+}
+
+/* Style pour les cartes de projet */
+.card-theme {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-theme::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradient-primary);
+  transform: scaleX(0);
   transition: transform 0.3s ease;
 }
 
-/* Animation d'entrée */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
+.card-theme:hover::before {
+  transform: scaleX(1);
+}
+
+/* Animation de chargement personnalisée */
+@keyframes spin {
   to {
-    opacity: 1;
-    transform: translateY(0);
+    transform: rotate(360deg);
   }
 }
 
-.animate-fadeInUp {
-  animation: fadeInUp 0.6s ease-out forwards;
+.animate-spin {
+  animation: spin 1s linear infinite;
 }
 
-/* Effets hover personnalisés */
-.group:hover .group-hover\:scale-110 {
-  transform: scale(1.1);
-}
-
-/* Responsive design */
+/* Responsive */
 @media (max-width: 768px) {
-  .grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
+  .grid {
+    grid-template-columns: 1fr;
   }
-
-  .text-3xl {
-    font-size: 1.875rem;
+  
+  .flex-wrap {
+    gap: 0.5rem;
   }
-
-  .text-lg {
-    font-size: 1rem;
-  }
-}
-
-/* Scrollbar personnalisée pour le modal */
-.overflow-y-auto::-webkit-scrollbar {
-  width: 6px;
-}
-
-.overflow-y-auto::-webkit-scrollbar-track {
-  background: rgba(31, 41, 55, 0.5);
-  border-radius: 3px;
-}
-
-.overflow-y-auto::-webkit-scrollbar-thumb {
-  background: rgba(59, 130, 246, 0.5);
-  border-radius: 3px;
-}
-
-.overflow-y-auto::-webkit-scrollbar-thumb:hover {
-  background: rgba(59, 130, 246, 0.7);
-}
-
-/* Optimisations de performance */
-.group {
-  contain: layout style paint;
-  will-change: transform;
-}
-
-/* Accessibilité */
-@media (prefers-reduced-motion: reduce) {
-  .transition,
-  .transition-all,
-  .transition-transform,
-  .transition-opacity {
-    transition-duration: 0.01ms !important;
-  }
-
-  .animate-fadeInUp {
-    animation: none !important;
+  
+  .px-6 {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
 </style>

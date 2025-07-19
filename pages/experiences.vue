@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen text-theme-primary">
+  <div class="min-h-screen text-theme-primary my-10">
     <div class="max-w-4xl mx-auto px-6 py-12">
       <!-- En-tête de section -->
       <div class="text-center mb-16">
@@ -7,7 +7,7 @@
           class="text-4xl md:text-5xl font-bold mb-4 gradient-primary bg-clip-text text-transparent"
           style="background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"
         >
-          Mon Expérience
+          Mes Expériences
         </h1>
         <p class="text-theme-muted text-lg max-w-2xl mx-auto">
           Découvrez mon parcours professionnel et les projets sur lesquels j'ai
@@ -409,7 +409,7 @@
                 d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 19 7.5 19s3.332-.523 4.5-1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.523 18.247 19 16.5 19c-1.746 0-3.332-.477-4.5-1.253"
               />
             </svg>
-            Voir ma formation
+            Voir mes formations
           </NuxtLink>
         </div>
       </div>

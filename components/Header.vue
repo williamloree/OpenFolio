@@ -11,7 +11,8 @@
           >
             <span class="text-white font-bold text-lg">P</span>
           </div>
-          <span class="text-theme-primary font-semibold text-xl hidden sm:block group-hover:text-theme-secondary transition-colors"
+          <span
+            class="text-theme-primary font-semibold text-xl hidden sm:block group-hover:text-theme-secondary transition-colors"
             >Portfolio</span
           >
         </NuxtLink>
@@ -62,12 +63,12 @@
             ></div>
           </NuxtLink>
 
-          <a
-            href="mailto:votre.email@example.com"
+          <NuxtLink
+            to="/contact"
             class="btn-theme-primary hover-glow transition-all duration-200 transform hover:scale-105"
           >
             Contact
-          </a>
+          </NuxtLink>
         </div>
 
         <!-- Mobile menu button -->
@@ -164,12 +165,12 @@
     </nav>
 
     <!-- Indicateur de progression de scroll -->
-    <div 
+    <div
       class="absolute bottom-0 left-0 h-0.5 transition-all duration-300"
-      :style="{ 
-        width: `${scrollProgress}%`, 
+      :style="{
+        width: `${scrollProgress}%`,
         backgroundColor: 'var(--accent-color)',
-        boxShadow: `0 0 10px var(--accent-color)`
+        boxShadow: `0 0 10px var(--accent-color)`,
       }"
     ></div>
   </header>
@@ -204,10 +205,10 @@ watch(
 );
 
 onMounted(() => {
-  window.addEventListener('scroll', updateScrollProgress);
+  window.addEventListener("scroll", updateScrollProgress);
 });
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', updateScrollProgress);
+  window.removeEventListener("scroll", updateScrollProgress);
 });
 </script>

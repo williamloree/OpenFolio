@@ -131,7 +131,6 @@ body {
 
 .border-theme { 
   border-color: var(--border-color);
-  border-radius: 12px;
 }
 
 .gradient-primary { 
@@ -405,11 +404,11 @@ body {
 }
 
 /* Focus naturel */
-*:focus {
+/* *:focus {
   @apply outline-none;
   box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.4);
   border-radius: 8px;
-}
+} */
 
 /* Textures naturelles */
 .nature-texture {

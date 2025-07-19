@@ -6,13 +6,12 @@
     "bio": "Passionné par les technologies web modernes, je transforme vos idées en solutions digitales innovantes.",
     "avatar": "https://filer.iducation.fr/preview/image/1729902633714_45491256.png",
     "specialization": "Vue.js, Nuxt.js, Node.js et technologies cloud",
-    "metaDescription": "Portfolio d'Williamloree, développeur Full-Stack spécialisé en Vue.js, Nuxt.js et technologies web modernes.",
-    "showQR": true,
+    "metaDescription": "Portfolio de William loree, développeur Full-Stack spécialisé en Vue.js, Nuxt.js et technologies web modernes.",
     "qrText": "Scannez pour mon contact",
-    "location": "Nice, France",
-    "experience": "3+ années d'expérience",
-    "email": "alexandre.dupont@example.com",
-    "phone": "+33 6 12 34 56 78"
+    "location": "Montpellier, France",
+    "experience": "8+",
+    "email": "loreewilliam988@gmail.com",
+    "phone": "+33 6 12 34 56 79"
   },
   "links": [
     {
@@ -38,17 +37,6 @@
       "order": 2
     },
     {
-      "id": 3,
-      "type": "portfolio",
-      "title": "Mes Projets",
-      "description": "Portfolio de réalisations",
-      "url": "/projets",
-      "icon": "mdi:briefcase-outline",
-      "external": false,
-      "featured": true,
-      "order": 3
-    },
-    {
       "id": 4,
       "type": "cv",
       "title": "Mon Expérience",
@@ -69,29 +57,6 @@
       "external": true,
       "featured": false,
       "order": 5
-    },
-    {
-      "id": 6,
-      "type": "email",
-      "title": "Contact",
-      "description": "Discutons de votre projet",
-      "url": "mailto:williamloree@example.com",
-      "icon": "mdi:email-outline",
-      "external": true,
-      "featured": false,
-      "order": 6
-    },
-    {
-      "id": 7,
-      "type": "twitter",
-      "title": "Twitter",
-      "description": "Actualités tech et veille",
-      "url": "https://twitter.com/williamloree",
-      "icon": "mdi:twitter",
-      "external": true,
-      "featured": false,
-      "order": 7,
-      "hidden": false
     },
     {
       "id": 8,
@@ -128,12 +93,6 @@
       "style": "top: 15%; right: 15%; animation-delay: 4s;"
     }
   ],
-  "theme": {
-    "primaryColor": "#3B82F6",
-    "secondaryColor": "#8B5CF6",
-    "accentColor": "#10B981",
-    "backgroundColor": "#000000"
-  },
   "analytics": {
     "googleAnalytics": "GA_MEASUREMENT_ID",
     "facebookPixel": null,

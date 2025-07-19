@@ -351,11 +351,11 @@ body {
 }
 
 /* Focus cyberpunk */
-*:focus {
+/* *:focus {
   @apply outline-none;
   box-shadow: 0 0 0 3px rgba(255, 0, 128, 0.5);
   text-shadow: 0 0 10px var(--primary-color);
-}
+} */
 
 /* Responsive cyberpunk */
 @media (max-width: 768px) {
