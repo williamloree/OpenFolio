@@ -70,8 +70,8 @@ docker run -p 3000:3000 OpenFolio
 ```txt
 OpenFolio/
 ├── 📂 components/          # Composants Vue réutilisables
-│   ├── EducationList.vue   # Liste des formations
-│   └── ExperienceList.vue  # Liste des expériences
+│   ├── Header.vue
+│   └── Footer.vue
 ├── 📂 pages/              # Pages Nuxt (routage automatique)
 │   ├── index.vue          # Page d'accueil
 │   ├── projets.vue        # Page des projets
