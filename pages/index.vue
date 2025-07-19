@@ -49,10 +49,7 @@
         :style="{ borderColor: 'var(--border-color)' }"
       >
         <img
-          :src="
-            data.profile.avatar ||
-            'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face'
-          "
+          :src="data.profile.avatar"
           :alt="data.profile.name || 'Profile'"
           class="w-full h-full object-cover"
         />
@@ -61,7 +58,11 @@
       <!-- Name and Title -->
       <h1
         class="text-3xl font-bold mb-2 gradient-primary bg-clip-text text-transparent"
-        style="background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"
+        style="
+          background: var(--gradient-primary);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        "
       >
         {{ data.profile.username || "@votre_username" }}
       </h1>
@@ -145,11 +146,18 @@ watchEffect(() => {
   if (data.value?.profile && data.value?.seo) {
     const profile = data.value.profile;
     const seo = data.value.seo;
-    
+
     // Utilisation des données SEO du JSON avec fallback sur les données de profil
-    const title = `${profile.name || "Portfolio"} - ${profile.title || "Développeur Full-Stack"}`;
-    const description = profile.metaDescription || seo.metaDescription || `Portfolio de ${profile.name || "développeur"} spécialisé en ${profile.specialization || "développement web"}.`;
-    
+    const title = `${profile.name || "Portfolio"} - ${
+      profile.title || "Développeur Full-Stack"
+    }`;
+    const description =
+      profile.metaDescription ||
+      seo.metaDescription ||
+      `Portfolio de ${profile.name || "développeur"} spécialisé en ${
+        profile.specialization || "développement web"
+      }.`;
+
     useHead({
       title: title,
       meta: [
@@ -159,7 +167,9 @@ watchEffect(() => {
         },
         {
           name: "keywords",
-          content: seo.keywords ? seo.keywords.join(", ") : "développeur, full-stack, portfolio",
+          content: seo.keywords
+            ? seo.keywords.join(", ")
+            : "développeur, full-stack, portfolio",
         },
         {
           name: "robots",
@@ -207,26 +217,29 @@ watchEffect(() => {
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Person",
-            "name": profile.name,
-            "jobTitle": profile.title,
-            "description": profile.bio,
-            "image": profile.avatar,
-            "url": seo.canonical,
-            "sameAs": data.value.links?.filter(link => link.external).map(link => link.url) || [],
-            "address": {
+            name: profile.name,
+            jobTitle: profile.title,
+            description: profile.bio,
+            image: profile.avatar,
+            url: seo.canonical,
+            sameAs:
+              data.value.links
+                ?.filter((link) => link.external)
+                .map((link) => link.url) || [],
+            address: {
               "@type": "PostalAddress",
-              "addressLocality": profile.location
+              addressLocality: profile.location,
             },
-            "email": profile.email,
-            "telephone": profile.phone
-          })
-        }
+            email: profile.email,
+            telephone: profile.phone,
+          }),
+        },
       ],
       link: [
         {
           rel: "canonical",
           href: seo.canonical || "https://votre-domaine.fr",
-        }
+        },
       ],
     });
   } else if (!loading.value) {
@@ -267,15 +280,18 @@ const backgroundParticles = computed(() => {
   return [
     {
       class: "w-2 h-2 animate-float",
-      style: "top: 25%; left: 25%; animation-delay: 0s; background: var(--primary-color); opacity: 0.7;",
+      style:
+        "top: 25%; left: 25%; animation-delay: 0s; background: var(--primary-color); opacity: 0.7;",
     },
     {
       class: "w-1 h-1 animate-float",
-      style: "top: 75%; right: 25%; animation-delay: 1s; background: var(--secondary-color); opacity: 0.6;",
+      style:
+        "top: 75%; right: 25%; animation-delay: 1s; background: var(--secondary-color); opacity: 0.6;",
     },
     {
       class: "w-1.5 h-1.5 animate-float",
-      style: "bottom: 25%; left: 33%; animation-delay: 2s; background: var(--accent-color); opacity: 0.8;",
+      style:
+        "bottom: 25%; left: 33%; animation-delay: 2s; background: var(--accent-color); opacity: 0.8;",
     },
   ];
 });

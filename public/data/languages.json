@@ -29,16 +29,6 @@
       "proficiency": 70,
       "certification": "B2",
       "description": "Capable de conversations courantes et compréhension de documents techniques simples."
-    },
-    {
-      "id": 4,
-      "name": "Allemand",
-      "code": "de",
-      "flag": "🇩🇪",
-      "level": "Débutant",
-      "proficiency": 30,
-      "certification": "A2",
-      "description": "Notions de base, en cours d'apprentissage."
     }
   ]
 }

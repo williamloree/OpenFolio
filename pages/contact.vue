@@ -15,7 +15,7 @@
     </div>
 
     <!-- Contenu principal -->
-    <main class="max-w-6xl mx-auto px-6 py-16">
+    <main class="max-w-6xl mx-auto px-6">
       
       <!-- Statistiques de contact -->
       <section class="mb-16">

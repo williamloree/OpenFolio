@@ -364,16 +364,7 @@
 
             <!-- Informations sur le thème actuel -->
             <div class="mt-4 pt-4 border-t border-theme">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center">
-                  <div
-                    class="w-3 h-3 rounded-full mr-2"
-                    :style="{ backgroundColor: 'var(--primary-color)' }"
-                  ></div>
-                  <span class="text-theme-secondary text-sm">
-                    Thème CSS actif avec variables personnalisables
-                  </span>
-                </div>
+              <div class="flex items-center justify-end">
                 <div class="flex items-center space-x-2">
                   <div
                     class="w-2 h-2 rounded-full"

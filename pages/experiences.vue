@@ -373,8 +373,8 @@
       <div class="text-center mt-20">
         <p class="text-theme-muted mb-6">Intéressé par mon profil ?</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href="mailto:votre.email@example.com"
+          <NuxtLink
+            to="/contact"
             class="btn-theme-primary hover-glow transform hover:scale-105 inline-flex items-center justify-center"
           >
             <svg
@@ -391,7 +391,7 @@
               />
             </svg>
             Me contacter
-          </a>
+          </NuxtLink>
           <NuxtLink
             to="/formations"
             class="btn-theme-secondary hover-glow inline-flex items-center justify-center"
