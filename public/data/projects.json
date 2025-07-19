@@ -1,0 +1,236 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "E-Commerce Modern",
+      "description": "Plateforme e-commerce complète avec paiement intégré, gestion des stocks et tableau de bord administrateur.",
+      "fullDescription": "Une plateforme e-commerce moderne développée avec Nuxt.js et Stripe pour les paiements. Interface utilisateur intuitive avec panier temps réel, système de commandes avancé et tableau de bord administrateur complet. Optimisée pour les performances et le SEO avec un score Lighthouse de 95+.",
+      "image": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&h=300&fit=crop",
+      "category": "ecommerce",
+      "technologies": ["Nuxt.js", "Vue.js", "Stripe", "MongoDB", "Tailwind CSS", "Node.js", "Express", "JWT"],
+      "year": "2024",
+      "status": "completed",
+      "liveUrl": "https://example-ecommerce.com",
+      "githubUrl": "https://github.com/username/ecommerce-modern",
+      "clientType": "external",
+      "metrics": {
+        "duration": "3 mois",
+        "team": "2 dev",
+        "impact": "+40% ventes"
+      },
+      "features": [
+        "Paiement sécurisé avec Stripe",
+        "Gestion temps réel des stocks",
+        "Interface admin complète",
+        "Notifications push",
+        "Analytics intégrées",
+        "Design responsive",
+        "Système de recommandations",
+        "Multi-devises"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Dashboard Analytics",
+      "description": "Tableau de bord avancé pour visualiser les données business avec graphiques interactifs et rapports personnalisés.",
+      "fullDescription": "Dashboard analytics développé avec Vue.js et D3.js pour visualiser des données complexes. Intégration d'APIs multiples, graphiques interactifs temps réel et système de rapports automatisés. Solution scalable capable de traiter des millions de points de données.",
+      "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop",
+      "category": "dashboard",
+      "technologies": ["Vue.js", "D3.js", "Chart.js", "Firebase", "TypeScript", "WebSockets", "Redis"],
+      "year": "2024",
+      "status": "completed",
+      "liveUrl": "https://analytics-dashboard.example.com",
+      "githubUrl": "https://github.com/username/analytics-dashboard",
+      "clientType": "internal",
+      "metrics": {
+        "duration": "2 mois",
+        "team": "1 dev",
+        "impact": "+60% efficacité"
+      },
+      "features": [
+        "Graphiques interactifs temps réel",
+        "Filtres avancés et recherche",
+        "Export PDF/Excel automatisé",
+        "Alertes personnalisables",
+        "Architecture multi-tenant",
+        "API REST complète",
+        "Cache intelligent",
+        "Mode hors-ligne"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "App Mobile React Native",
+      "description": "Application mobile cross-platform pour la gestion de tâches avec synchronisation cloud et notifications.",
+      "fullDescription": "Application mobile développée en React Native avec synchronisation cloud Firebase. Gestion de tâches collaborative, notifications push et mode hors-ligne. Interface utilisateur moderne avec animations fluides et UX optimisée pour iOS et Android.",
+      "image": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500&h=300&fit=crop",
+      "category": "mobile",
+      "technologies": ["React Native", "Firebase", "Redux", "Expo", "TypeScript", "AsyncStorage", "Push Notifications"],
+      "year": "2023",
+      "status": "completed",
+      "liveUrl": null,
+      "githubUrl": "https://github.com/username/tasks-mobile-app",
+      "clientType": "external",
+      "metrics": {
+        "duration": "4 mois",
+        "team": "3 dev",
+        "impact": "5k+ utilisateurs"
+      },
+      "features": [
+        "Mode hors-ligne complet",
+        "Notifications push intelligentes",
+        "Synchronisation cloud temps réel",
+        "Partage de tâches collaboratif",
+        "Thème sombre/clair adaptatif",
+        "Géolocalisation des tâches",
+        "Widget iOS/Android",
+        "Siri Shortcuts et Google Assistant"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Site Web Corporate",
+      "description": "Site vitrine moderne pour entreprise avec CMS headless, blog intégré et optimisations SEO.",
+      "fullDescription": "Site web corporate développé avec Nuxt.js et Strapi CMS. Optimisé pour les performances et le SEO, avec système de blog intégré et interface d'administration pour la gestion de contenu. Score Lighthouse parfait et temps de chargement sub-seconde.",
+      "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop",
+      "category": "web",
+      "technologies": ["Nuxt.js", "Strapi", "GraphQL", "Tailwind CSS", "Cloudinary", "Algolia", "Netlify"],
+      "year": "2023",
+      "status": "completed",
+      "liveUrl": "https://corporate-site.example.com",
+      "githubUrl": "https://github.com/username/corporate-website",
+      "clientType": "external",
+      "metrics": {
+        "duration": "6 semaines",
+        "team": "2 dev",
+        "impact": "Score 100/100"
+      },
+      "features": [
+        "Score Lighthouse 100/100",
+        "CMS headless Strapi intégré",
+        "Blog dynamique avec catégories",
+        "Support multilingue (i18n)",
+        "Formulaires avancés avec validation",
+        "Animations CSS sur mesure",
+        "Recherche full-text avec Algolia",
+        "Optimisation images automatique"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "PWA Météo",
+      "description": "Application météo Progressive Web App avec géolocalisation, prévisions et mode hors-ligne.",
+      "fullDescription": "PWA météo développée avec Vue.js et API OpenWeather. Fonctionnalités avancées de géolocalisation, prévisions détaillées et mode hors-ligne avec cache intelligent. Interface utilisateur adaptative selon les conditions météorologiques.",
+      "image": "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=500&h=300&fit=crop",
+      "category": "web",
+      "technologies": ["Vue.js", "PWA", "Service Workers", "OpenWeather API", "Geolocation", "IndexedDB", "Workbox"],
+      "year": "2023",
+      "status": "completed",
+      "liveUrl": "https://weather-pwa.example.com",
+      "githubUrl": "https://github.com/username/weather-pwa",
+      "clientType": "personal",
+      "metrics": {
+        "duration": "3 semaines",
+        "team": "1 dev",
+        "impact": "95/100 Lighthouse"
+      },
+      "features": [
+        "Géolocalisation automatique précise",
+        "Prévisions 7 jours détaillées",
+        "Mode hors-ligne complet",
+        "Notifications météo push",
+        "Interface adaptative selon météo",
+        "Installation PWA native",
+        "Cartes météo interactives",
+        "Historique des recherches"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Plateforme SaaS",
+      "description": "Solution SaaS complète avec authentification, abonnements et tableau de bord multi-tenant.",
+      "fullDescription": "Plateforme SaaS développée avec Next.js et Stripe pour la gestion des abonnements. Architecture multi-tenant avec authentification avancée, système de facturation automatisé et analytics détaillées. Solution évolutive pour startups et entreprises.",
+      "image": "https://images.unsplash.com/photo-1551434678-e076c223a692?w=500&h=300&fit=crop",
+      "category": "web",
+      "technologies": ["Next.js", "Stripe", "PostgreSQL", "Prisma", "NextAuth", "Vercel", "Tailwind CSS", "React Query"],
+      "year": "2024",
+      "status": "in-progress",
+      "liveUrl": "https://saas-platform.example.com",
+      "githubUrl": "https://github.com/username/saas-platform",
+      "clientType": "internal",
+      "metrics": {
+        "duration": "6 mois",
+        "team": "4 dev",
+        "impact": "Lancement Q1 2025"
+      },
+      "features": [
+        "Architecture multi-tenant scalable",
+        "Gestion abonnements Stripe",
+        "Facturation automatisée",
+        "API RESTful documentée",
+        "Analytics avancées en temps réel",
+        "Support client intégré",
+        "Onboarding interactif",
+        "Système de permissions granulaire"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "API REST Microservices",
+      "description": "Architecture microservices robuste avec Docker, monitoring et auto-scaling pour application haute performance.",
+      "fullDescription": "Architecture microservices complète développée avec Node.js et Docker. Système de monitoring, logging centralisé et auto-scaling. Conçue pour gérer des millions de requêtes par jour avec une disponibilité de 99.9%.",
+      "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=500&h=300&fit=crop",
+      "category": "api",
+      "technologies": ["Node.js", "Docker", "Kubernetes", "MongoDB", "Redis", "RabbitMQ", "Prometheus", "Grafana"],
+      "year": "2023",
+      "status": "completed",
+      "liveUrl": null,
+      "githubUrl": "https://github.com/username/microservices-api",
+      "clientType": "external",
+      "metrics": {
+        "duration": "5 mois",
+        "team": "3 dev",
+        "impact": "99.9% uptime"
+      },
+      "features": [
+        "Architecture microservices modulaire",
+        "Auto-scaling automatique",
+        "Monitoring temps réel",
+        "Load balancing intelligent",
+        "Circuit breaker pattern",
+        "Logging centralisé",
+        "Tests automatisés (CI/CD)",
+        "Documentation API interactive"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Application Desktop Electron",
+      "description": "Application desktop cross-platform pour la gestion de fichiers avec interface moderne et fonctionnalités avancées.",
+      "fullDescription": "Application desktop développée avec Electron et Vue.js. Interface utilisateur moderne et intuitive pour la gestion avancée de fichiers. Support multi-plateforme (Windows, macOS, Linux) avec fonctionnalités natives intégrées.",
+      "image": "https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?w=500&h=300&fit=crop",
+      "category": "desktop",
+      "technologies": ["Electron", "Vue.js", "Node.js", "SQLite", "Webpack", "Auto-updater"],
+      "year": "2022",
+      "status": "completed",
+      "liveUrl": null,
+      "githubUrl": "https://github.com/username/file-manager-desktop",
+      "clientType": "personal",
+      "metrics": {
+        "duration": "4 mois",
+        "team": "1 dev",
+        "impact": "1k+ téléchargements"
+      },
+      "features": [
+        "Interface moderne et intuitive",
+        "Support multi-plateformes",
+        "Recherche avancée de fichiers",
+        "Prévisualisation intégrée",
+        "Synchronisation cloud",
+        "Raccourcis clavier personnalisables",
+        "Thèmes personnalisables",
+        "Auto-update automatique"
+      ]
+    }
+  ]
+}

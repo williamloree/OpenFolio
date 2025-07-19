@@ -1,0 +1,147 @@
+{
+  "profile": {
+    "name": "Williamloree",
+    "username": "@williamloree",
+    "title": "Développeur Full-Stack & Créateur de Solutions Web",
+    "bio": "Passionné par les technologies web modernes, je transforme vos idées en solutions digitales innovantes.",
+    "avatar": "https://filer.iducation.fr/preview/image/1729902633714_45491256.png",
+    "specialization": "Vue.js, Nuxt.js, Node.js et technologies cloud",
+    "metaDescription": "Portfolio d'Williamloree, développeur Full-Stack spécialisé en Vue.js, Nuxt.js et technologies web modernes.",
+    "showQR": true,
+    "qrText": "Scannez pour mon contact",
+    "location": "Nice, France",
+    "experience": "3+ années d'expérience",
+    "email": "alexandre.dupont@example.com",
+    "phone": "+33 6 12 34 56 78"
+  },
+  "links": [
+    {
+      "id": 1,
+      "type": "github",
+      "title": "GitHub",
+      "description": "Code source et projets open source",
+      "url": "https://github.com/williamloree",
+      "icon": "mdi:github",
+      "external": true,
+      "featured": false,
+      "order": 1
+    },
+    {
+      "id": 2,
+      "type": "linkedin",
+      "title": "LinkedIn",
+      "description": "Réseau professionnel et CV",
+      "url": "https://linkedin.com/in/williamloree",
+      "icon": "mdi:linkedin",
+      "external": true,
+      "featured": false,
+      "order": 2
+    },
+    {
+      "id": 3,
+      "type": "portfolio",
+      "title": "Mes Projets",
+      "description": "Portfolio de réalisations",
+      "url": "/projets",
+      "icon": "mdi:briefcase-outline",
+      "external": false,
+      "featured": true,
+      "order": 3
+    },
+    {
+      "id": 4,
+      "type": "cv",
+      "title": "Mon Expérience",
+      "description": "Parcours professionnel détaillé",
+      "url": "/experiences",
+      "icon": "mdi:account-tie",
+      "external": false,
+      "featured": true,
+      "order": 4
+    },
+    {
+      "id": 5,
+      "type": "instagram",
+      "title": "Instagram",
+      "description": "Suivez-moi pour du contenu tech",
+      "url": "https://instagram.com/williamloree",
+      "icon": "mdi:instagram",
+      "external": true,
+      "featured": false,
+      "order": 5
+    },
+    {
+      "id": 6,
+      "type": "email",
+      "title": "Contact",
+      "description": "Discutons de votre projet",
+      "url": "mailto:williamloree@example.com",
+      "icon": "mdi:email-outline",
+      "external": true,
+      "featured": false,
+      "order": 6
+    },
+    {
+      "id": 7,
+      "type": "twitter",
+      "title": "Twitter",
+      "description": "Actualités tech et veille",
+      "url": "https://twitter.com/williamloree",
+      "icon": "mdi:twitter",
+      "external": true,
+      "featured": false,
+      "order": 7,
+      "hidden": false
+    },
+    {
+      "id": 8,
+      "type": "blog",
+      "title": "Mon Blog",
+      "description": "Articles et tutoriels tech",
+      "url": "https://iducation.fr",
+      "icon": "mdi:post-outline",
+      "external": true,
+      "featured": false,
+      "order": 8,
+      "hidden": true
+    }
+  ],
+  "particles": [
+    {
+      "class": "w-2 h-2 bg-blue-500 animate-pulse",
+      "style": "top: 25%; left: 25%; animation-delay: 0s;"
+    },
+    {
+      "class": "w-1 h-1 bg-purple-500 animate-ping",
+      "style": "top: 75%; right: 25%; animation-delay: 1s;"
+    },
+    {
+      "class": "w-1.5 h-1.5 bg-green-500 animate-pulse",
+      "style": "bottom: 25%; left: 33%; animation-delay: 2s;"
+    },
+    {
+      "class": "w-2 h-2 bg-pink-500 animate-ping",
+      "style": "top: 50%; right: 33%; animation-delay: 3s;"
+    },
+    {
+      "class": "w-1 h-1 bg-yellow-500 animate-pulse",
+      "style": "top: 15%; right: 15%; animation-delay: 4s;"
+    }
+  ],
+  "theme": {
+    "primaryColor": "#3B82F6",
+    "secondaryColor": "#8B5CF6",
+    "accentColor": "#10B981",
+    "backgroundColor": "#000000"
+  },
+  "analytics": {
+    "googleAnalytics": "GA_MEASUREMENT_ID",
+    "facebookPixel": null,
+    "hotjar": null
+  },
+  "seo": {
+    "keywords": ["développeur", "full-stack", "vue.js", "nuxt.js", "javascript", "portfolio", "nice", "france"],
+    "robots": "index, follow",
+    "canonical": "https://alexandre-dupont.fr"
+  }
+}

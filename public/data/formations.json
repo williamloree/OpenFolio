@@ -1,0 +1,69 @@
+{
+  "education": [
+    {
+      "id": 1,
+      "degree": "Master en Informatique",
+      "school": "Université de Technologie",
+      "type": "master",
+      "description": "Spécialisation en développement web et architecture logicielle. Formation approfondie en algorithmique, bases de données et technologies web modernes.",
+      "startYear": "2016",
+      "endYear": "2018",
+      "location": "Paris, France",
+      "gpa": "17.5",
+      "gpaMax": "20",
+      "gpaLabel": "Moyenne générale",
+      "grade": "Mention Très Bien",
+      "subjects": [
+        "Algorithmique avancée",
+        "Architecture logicielle",
+        "Bases de données",
+        "Développement web",
+        "Intelligence artificielle",
+        "Sécurité informatique"
+      ]
+    },
+    {
+      "id": 2,
+      "degree": "Licence Informatique",
+      "school": "Université des Sciences",
+      "type": "bachelor",
+      "description": "Formation fondamentale en informatique avec une approche théorique et pratique. Bases solides en programmation, mathématiques appliquées et systèmes d'information.",
+      "startYear": "2013",
+      "endYear": "2016",
+      "location": "Lyon, France",
+      "gpa": "15.8",
+      "gpaMax": "20",
+      "gpaLabel": "Moyenne générale",
+      "grade": "Mention Bien",
+      "subjects": [
+        "Programmation",
+        "Mathématiques",
+        "Systèmes",
+        "Réseaux",
+        "Structures de données",
+        "Génie logiciel"
+      ]
+    },
+    {
+      "id": 3,
+      "degree": "Baccalauréat Scientifique",
+      "school": "Lycée Technologique",
+      "type": "diploma",
+      "description": "Formation scientifique avec spécialisation en mathématiques et sciences de l'ingénieur. Première approche de l'informatique et de la programmation.",
+      "startYear": "2012",
+      "endYear": "2013",
+      "location": "Nice, France",
+      "gpa": "16.2",
+      "gpaMax": "20",
+      "gpaLabel": "Moyenne générale",
+      "grade": "Mention Bien",
+      "subjects": [
+        "Mathématiques",
+        "Physique-Chimie",
+        "Sciences de l'ingénieur",
+        "Informatique",
+        "Anglais"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "skillCategories": [
+    {
+      "id": "frontend",
+      "name": "Frontend",
+      "icon": "code",
+      "color": "blue",
+      "skills": [
+        {
+          "name": "Vue.js / Nuxt.js",
+          "level": 95,
+          "experience": "3+ ans"
+        },
+        {
+          "name": "React / Next.js", 
+          "level": 85,
+          "experience": "2+ ans"
+        },
+        {
+          "name": "TypeScript",
+          "level": 90,
+          "experience": "2+ ans"
+        },
+        {
+          "name": "Tailwind CSS",
+          "level": 95,
+          "experience": "3+ ans"
+        },
+        {
+          "name": "HTML/CSS",
+          "level": 98,
+          "experience": "5+ ans"
+        }
+      ]
+    },
+    {
+      "id": "backend",
+      "name": "Backend",
+      "icon": "server",
+      "color": "green",
+      "skills": [
+        {
+          "name": "Node.js / Express",
+          "level": 90,
+          "experience": "3+ ans"
+        },
+        {
+          "name": "Python / Django",
+          "level": 80,
+          "experience": "2+ ans"
+        },
+        {
+          "name": "PHP / Laravel",
+          "level": 75,
+          "experience": "2+ ans"
+        },
+        {
+          "name": "API REST / GraphQL",
+          "level": 85,
+          "experience": "2+ ans"
+        }
+      ]
+    },
+    {
+      "id": "database",
+      "name": "Base de données",
+      "icon": "database",
+      "color": "purple",
+      "skills": [
+        {
+          "name": "MongoDB",
+          "level": 85,
+          "experience": "2+ ans"
+        },
+        {
+          "name": "PostgreSQL",
+          "level": 80,
+          "experience": "2+ ans"
+        },
+        {
+          "name": "MySQL",
+          "level": 85,
+          "experience": "3+ ans"
+        },
+        {
+          "name": "Redis",
+          "level": 70,
+          "experience": "1+ an"
+        }
+      ]
+    },
+    {
+      "id": "devops",
+      "name": "DevOps & Cloud",
+      "icon": "cloud",
+      "color": "orange",
+      "skills": [
+        {
+          "name": "Docker",
+          "level": 80,
+          "experience": "2+ ans"
+        },
+        {
+          "name": "AWS",
+          "level": 75,
+          "experience": "1+ an"
+        },
+        {
+          "name": "Git / GitHub",
+          "level": 95,
+          "experience": "5+ ans"
+        },
+        {
+          "name": "CI/CD",
+          "level": 75,
+          "experience": "1+ an"
+        }
+      ]
+    },
+    {
+      "id": "tools",
+      "name": "Outils & Méthodologies",
+      "icon": "tools",
+      "color": "pink",
+      "skills": [
+        {
+          "name": "Figma / Adobe XD",
+          "level": 85,
+          "experience": "3+ ans"
+        },
+        {
+          "name": "Scrum / Agile",
+          "level": 90,
+          "experience": "3+ ans"
+        },
+        {
+          "name": "Jest / Testing",
+          "level": 80,
+          "experience": "2+ ans"
+        },
+        {
+          "name": "Webpack / Vite",
+          "level": 85,
+          "experience": "2+ ans"
+        }
+      ]
+    }
+  ]
+}

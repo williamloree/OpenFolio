@@ -1,0 +1,64 @@
+{
+  "certifications": [
+    {
+      "id": 1,
+      "name": "Vue.js Certified Developer",
+      "issuer": "Vue School",
+      "year": "2023",
+      "description": "Certification officielle Vue.js couvrant les concepts avancés et les meilleures pratiques du framework.",
+      "color": "purple",
+      "credentialUrl": "https://vueschool.io/certificates/example",
+      "skills": ["Vue.js", "Composition API", "Vuex", "Vue Router"]
+    },
+    {
+      "id": 2,
+      "name": "AWS Solutions Architect Associate",
+      "issuer": "Amazon Web Services",
+      "year": "2022",
+      "description": "Certification en architecture cloud et déploiement d'applications scalables sur AWS.",
+      "color": "blue",
+      "credentialUrl": "https://aws.amazon.com/certification/example",
+      "skills": ["AWS", "Cloud Architecture", "EC2", "S3", "RDS"]
+    },
+    {
+      "id": 3,
+      "name": "Node.js Application Developer",
+      "issuer": "OpenJS Foundation",
+      "year": "2022",
+      "description": "Certification en développement d'applications Node.js et API REST performantes.",
+      "color": "green",
+      "credentialUrl": "https://openjsf.org/certification/example",
+      "skills": ["Node.js", "Express", "API REST", "MongoDB"]
+    },
+    {
+      "id": 4,
+      "name": "Scrum Master Certified",
+      "issuer": "Scrum Alliance",
+      "year": "2021",
+      "description": "Certification en méthodologies agiles et gestion de projets informatiques.",
+      "color": "orange",
+      "credentialUrl": "https://scrumalliance.org/certification/example",
+      "skills": ["Scrum", "Agile", "Gestion de projet", "Leadership"]
+    },
+    {
+      "id": 5,
+      "name": "Google Analytics Certified",
+      "issuer": "Google",
+      "year": "2021",
+      "description": "Certification en analyse web et optimisation des performances digitales.",
+      "color": "red",
+      "credentialUrl": "https://skillshop.exceedlms.com/example",
+      "skills": ["Google Analytics", "SEO", "Marketing Digital", "Analyse de données"]
+    },
+    {
+      "id": 6,
+      "name": "MongoDB Developer Certification",
+      "issuer": "MongoDB University",
+      "year": "2020",
+      "description": "Certification en développement d'applications avec base de données MongoDB.",
+      "color": "green",
+      "credentialUrl": "https://university.mongodb.com/certification/example",
+      "skills": ["MongoDB", "NoSQL", "Aggregation", "Indexing"]
+    }
+  ]
+}

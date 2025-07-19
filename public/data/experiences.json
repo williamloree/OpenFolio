@@ -1,0 +1,133 @@
+{
+  "experiences": [
+    {
+      "id": 1,
+      "role": "Développeur Full-Stack Senior",
+      "company": "TechCorp Solutions",
+      "description": "Développement d'applications web modernes utilisant Vue.js, Nuxt.js et Node.js. Conception d'architectures scalables et maintien de la qualité du code. Leadership technique sur des projets complexes avec équipes multidisciplinaires.",
+      "start": "Jan 2023",
+      "end": null,
+      "location": "Paris, France",
+      "type": "CDI",
+      "technologies": [
+        "Vue.js",
+        "Nuxt.js",
+        "Node.js",
+        "TypeScript",
+        "MongoDB",
+        "Docker",
+        "AWS",
+        "Tailwind CSS"
+      ],
+      "achievements": [
+        "Amélioration des performances de 40% sur l'application principale",
+        "Migration vers une architecture microservices",
+        "Formation et mentorat de 3 développeurs juniors",
+        "Mise en place de CI/CD avec Docker et AWS",
+        "Réduction du temps de développement de 30%"
+      ]
+    },
+    {
+      "id": 2,
+      "role": "Développeur Front-End",
+      "company": "StartupXYZ",
+      "description": "Développement d'interfaces utilisateur modernes et responsives. Collaboration étroite avec l'équipe design pour créer des expériences utilisateur exceptionnelles. Optimisation des performances et accessibilité.",
+      "start": "Mars 2021",
+      "end": "Déc 2022",
+      "location": "Lyon, France",
+      "type": "CDI",
+      "technologies": [
+        "React",
+        "Next.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Figma",
+        "Jest",
+        "Cypress"
+      ],
+      "achievements": [
+        "Développement de 15+ composants réutilisables",
+        "Optimisation du temps de chargement de 60%",
+        "Implémentation d'un design system complet",
+        "Score Lighthouse passé de 65 à 95",
+        "Mise en place des tests automatisés"
+      ]
+    },
+    {
+      "id": 3,
+      "role": "Développeur Web Freelance",
+      "company": "Indépendant",
+      "description": "Création de sites web sur mesure pour diverses entreprises. Gestion complète des projets de la conception à la mise en production. Conseil en stratégie digitale et optimisation SEO.",
+      "start": "2019",
+      "end": "Mars 2021",
+      "location": "Remote",
+      "type": "Freelance",
+      "technologies": [
+        "HTML/CSS",
+        "JavaScript",
+        "WordPress",
+        "PHP",
+        "MySQL",
+        "Vue.js",
+        "Bootstrap"
+      ],
+      "achievements": [
+        "Réalisation de 20+ sites web pour PME",
+        "Taux de satisfaction client de 98%",
+        "Développement de solutions e-commerce",
+        "Augmentation du trafic client de 150% en moyenne",
+        "Formation de clients à la gestion de contenu"
+      ]
+    },
+    {
+      "id": 4,
+      "role": "Développeur Junior",
+      "company": "AgenceWeb Pro",
+      "description": "Premier poste en développement web. Apprentissage des bonnes pratiques de développement et participation à des projets variés. Spécialisation progressive en JavaScript et frameworks modernes.",
+      "start": "Sep 2018",
+      "end": "Déc 2019",
+      "location": "Nice, France",
+      "type": "CDI",
+      "technologies": [
+        "HTML/CSS",
+        "JavaScript",
+        "jQuery",
+        "PHP",
+        "MySQL",
+        "WordPress",
+        "Photoshop"
+      ],
+      "achievements": [
+        "Intégration de 30+ maquettes web",
+        "Développement de 5 sites WordPress personnalisés",
+        "Collaboration sur 10+ projets d'équipe",
+        "Formation continue en JavaScript moderne",
+        "Obtention de la certification Google Analytics"
+      ]
+    },
+    {
+      "id": 5,
+      "role": "Stagiaire Développeur Web",
+      "company": "Digital Innovation",
+      "description": "Stage de fin d'études axé sur le développement front-end. Découverte du monde professionnel et des méthodologies agiles. Participation active aux projets clients sous supervision.",
+      "start": "Avr 2018",
+      "end": "Août 2018",
+      "location": "Marseille, France",
+      "type": "Stage",
+      "technologies": [
+        "HTML/CSS",
+        "JavaScript",
+        "Bootstrap",
+        "Git",
+        "Sass"
+      ],
+      "achievements": [
+        "Développement de 3 landing pages responsives",
+        "Apprentissage des méthodologies Scrum",
+        "Participation aux daily meetings et retrospectives",
+        "Validation du stage avec mention très bien",
+        "Proposition d'embauche à l'issue du stage"
+      ]
+    }
+  ]
+}

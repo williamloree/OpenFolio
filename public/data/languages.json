@@ -1,0 +1,44 @@
+{
+  "languages": [
+    {
+      "id": 1,
+      "name": "Français",
+      "code": "fr",
+      "flag": "🇫🇷",
+      "level": "Natif",
+      "proficiency": 100,
+      "certification": null,
+      "description": "Langue maternelle avec excellente maîtrise écrite et orale."
+    },
+    {
+      "id": 2,
+      "name": "Anglais",
+      "code": "en",
+      "flag": "🇬🇧",
+      "level": "Courant",
+      "proficiency": 90,
+      "certification": "C1",
+      "description": "Utilisation professionnelle quotidienne, lectures techniques et communications internationales."
+    },
+    {
+      "id": 3,
+      "name": "Espagnol",
+      "code": "es",
+      "flag": "🇪🇸",
+      "level": "Intermédiaire",
+      "proficiency": 70,
+      "certification": "B2",
+      "description": "Capable de conversations courantes et compréhension de documents techniques simples."
+    },
+    {
+      "id": 4,
+      "name": "Allemand",
+      "code": "de",
+      "flag": "🇩🇪",
+      "level": "Débutant",
+      "proficiency": 30,
+      "certification": "A2",
+      "description": "Notions de base, en cours d'apprentissage."
+    }
+  ]
+}
