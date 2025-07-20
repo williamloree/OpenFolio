@@ -45,7 +45,7 @@
       <Header />
       
       <!-- Contenu principal avec transitions de page -->
-      <main class="main-content pt-20">
+      <main class="main-content">
         <NuxtPage 
           :transition="{
             name: 'page',

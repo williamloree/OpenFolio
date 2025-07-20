@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     },
   },
   // Choisir le thème ici : 'default', 'cyberpunk', 'forest', 'ocean'
-  css: ["~/assets/themes/default.css"],
+  css: ["~/assets/themes/ocean.css"],
   app: {
     head: {
       title: "Portfolio Open Source",

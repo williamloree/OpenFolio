@@ -1,6 +1,6 @@
 <template>
   <header
-    class="fixed top-0 left-0 right-0 z-50 bg-theme-secondary/80 backdrop-blur-md border-b border-theme theme-transition"
+    class="sticky top-0 left-0 right-0 z-50 bg-theme-secondary/80 backdrop-blur-md border-b border-theme theme-transition"
   >
     <nav class="max-w-6xl mx-auto px-6 py-4">
       <div class="flex items-center justify-between">
