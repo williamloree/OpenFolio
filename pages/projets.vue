@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen text-theme-primary my-10">
-    <div class="max-w-7xl mx-auto px-6 py-12 ">
+    <div class="max-w-7xl mx-auto px-6 py-12">
       <!-- En-tête de section -->
       <div class="text-center mb-16">
         <h1
@@ -21,16 +21,21 @@
       </div>
 
       <!-- Loading state amélioré -->
-      <div v-if="loading || !isMounted" class="flex flex-col justify-center items-center py-20">
+      <div
+        v-if="loading || !isMounted"
+        class="flex flex-col justify-center items-center py-20"
+      >
         <div
           class="animate-spin rounded-full h-12 w-12 border-b-2 border-theme mb-4"
           :style="{ borderColor: 'var(--primary-color)' }"
         ></div>
         <p class="text-theme-secondary">{{ loadingMessage }}</p>
-        
+
         <!-- Timeout fallback -->
         <div v-if="showTimeoutWarning" class="mt-4 text-center">
-          <p class="text-orange-400 text-sm mb-2">Le chargement prend plus de temps que prévu...</p>
+          <p class="text-orange-400 text-sm mb-2">
+            Le chargement prend plus de temps que prévu...
+          </p>
           <button @click="forceReload" class="btn-theme-secondary text-sm">
             Réessayer
           </button>
@@ -83,7 +88,7 @@
               'px-6 py-3 rounded-full transition-all duration-300 font-medium',
               activeFilter === filter.id
                 ? 'bg-theme-primary text-white shadow-theme-glow'
-                : 'bg-theme-secondary text-theme-secondary hover:bg-theme-tertiary hover:text-theme-primary'
+                : 'bg-theme-secondary text-theme-secondary hover:bg-theme-tertiary hover:text-theme-primary',
             ]"
           >
             <span class="mr-2">{{ filter.icon }}</span>
@@ -116,7 +121,23 @@
                   loading="lazy"
                   @error="handleImageError"
                 />
-                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+
+                <span
+                  class="absolute top-2 right-2 z-50"
+                  :class="[
+                    'px-2 py-1 rounded-full text-base font-medium',
+                    project.status === 'completed'
+                      ? 'bg-green-500'
+                      : project.status === 'in-progress'
+                      ? 'bg-yellow-500 '
+                      : 'bg-blue-500 ',
+                  ]"
+                >
+                  {{ getStatusLabel(project.status) }}
+                </span>
+                <div
+                  class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
+                >
                   <Icon name="ph:eye" class="w-8 h-8 text-white" />
                 </div>
               </div>
@@ -124,19 +145,11 @@
               <!-- Contenu du projet -->
               <div class="space-y-3">
                 <div class="flex items-center justify-between">
-                  <h3 class="text-xl font-bold text-theme-primary group-hover:text-theme-secondary transition-colors">
+                  <h3
+                    class="text-xl font-bold text-theme-primary group-hover:text-theme-secondary transition-colors"
+                  >
                     {{ project.title }}
                   </h3>
-                  <span
-                    :class="[
-                      'px-2 py-1 rounded-full text-xs font-medium',
-                      project.status === 'completed' ? 'bg-green-500/20 text-green-400' :
-                      project.status === 'in-progress' ? 'bg-yellow-500/20 text-yellow-400' :
-                      'bg-blue-500/20 text-blue-400'
-                    ]"
-                  >
-                    {{ getStatusLabel(project.status) }}
-                  </span>
                 </div>
 
                 <p class="text-theme-muted text-sm leading-relaxed">
@@ -163,11 +176,11 @@
                 <!-- Actions -->
                 <div class="flex space-x-3 pt-2">
                   <a
-                    v-if="project.demoUrl"
-                    :href="project.demoUrl"
+                    v-if="project.liveUrl"
+                    :href="project.liveUrl"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="flex-1 btn-theme-primary text-center text-sm py-2"
+                    class="flex-1 btn-theme-primary text-center text-sm py-2 flex justify-center items-center space-x-4"
                     @click.stop
                   >
                     <Icon name="ph:eye" class="w-4 h-4 mr-1" />
@@ -178,11 +191,20 @@
                     :href="project.githubUrl"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="flex-1 btn-theme-secondary text-center text-sm py-2"
+                    class="flex-1 btn-theme-secondary text-center text-sm py-2 flex justify-center items-center space-x-4"
                     @click.stop
                   >
                     <Icon name="ph:github-logo" class="w-4 h-4 mr-1" />
                     Code
+                  </a>
+                  <a
+                    v-if="!project.githubUrl && !project.liveUrl"
+                    :href="`mailto:${profileInfo.email}`"
+                    class="flex-1 btn-theme-secondary text-center text-sm py-2 flex justify-center items-center space-x-4"
+                    @click.stop
+                  >
+                    <Icon name="material-symbols:mail" class="w-4 h-4 mr-1" />
+                    Contactez-moi
                   </a>
                 </div>
               </div>
@@ -247,7 +269,9 @@
             Je serais ravi de discuter de votre prochain projet et de voir
             comment nous pouvons créer quelque chose d'extraordinaire ensemble.
           </p>
-          <NuxtLink to="/contact" class="btn-theme-primary hover-glow transform hover:scale-105 inline-flex items-center justify-center"
+          <NuxtLink
+            to="/contact"
+            class="btn-theme-primary hover-glow transform hover:scale-105 inline-flex items-center justify-center"
           >
             <Icon name="ph:chat-circle" class="w-5 h-5 mr-2" />
             Discutons de votre projet
@@ -268,7 +292,9 @@
           @click.stop
         >
           <div class="flex justify-between items-start mb-4">
-            <h2 class="text-2xl font-bold text-theme-primary">{{ selectedProject.title }}</h2>
+            <h2 class="text-2xl font-bold text-theme-primary">
+              {{ selectedProject.title }}
+            </h2>
             <button
               @click="selectedProject = null"
               class="text-theme-muted hover:text-theme-primary"
@@ -276,18 +302,22 @@
               <Icon name="ph:x" class="w-6 h-6" />
             </button>
           </div>
-          
+
           <img
             :src="selectedProject.image || '/images/placeholder-project.jpg'"
             :alt="selectedProject.title"
             class="w-full h-64 object-cover rounded-lg mb-4"
           />
-          
-          <p class="text-theme-secondary mb-4">{{ selectedProject.longDescription || selectedProject.description }}</p>
-          
+
+          <p class="text-theme-secondary mb-4">
+            {{ selectedProject.fullDescription || selectedProject.description }}
+          </p>
+
           <div class="space-y-4">
             <div>
-              <h3 class="font-semibold text-theme-primary mb-2">Technologies utilisées</h3>
+              <h3 class="font-semibold text-theme-primary mb-2">
+                Technologies utilisées
+              </h3>
               <div class="flex flex-wrap gap-2">
                 <span
                   v-for="tech in selectedProject.technologies"
@@ -298,7 +328,7 @@
                 </span>
               </div>
             </div>
-            
+
             <div class="flex space-x-4">
               <a
                 v-if="selectedProject.demoUrl"
@@ -335,7 +365,8 @@ useHead({
   meta: [
     {
       name: "description",
-      content: "Découvrez mes projets et réalisations en développement web. Réalisations en Vue.js, Nuxt.js, React et bien plus.",
+      content:
+        "Découvrez mes projets et réalisations en développement web. Réalisations en Vue.js, Nuxt.js, React et bien plus.",
     },
     { property: "og:title", content: "Mes Projets - Portfolio" },
     {
@@ -346,66 +377,90 @@ useHead({
 });
 
 // Variables d'état
-const activeFilter = ref("all")
-const selectedProject = ref<any>(null)
-const isMounted = ref(false)
-const showDebug = ref(process.dev) // Afficher debug seulement en dev
-const loadingMessage = ref("Chargement des projets...")
-const showTimeoutWarning = ref(false)
+const activeFilter = ref("all");
+const selectedProject = ref<any>(null);
+const isMounted = ref(false);
+const showDebug = ref(process.dev); // Afficher debug seulement en dev
+const loadingMessage = ref("Chargement des projets...");
+const showTimeoutWarning = ref(false);
 
 // Chargement des données avec retry
-const { data, error, loading, retry } = useJson("projects.json")
+const { data, error, loading, retry } = useJson("projects.json");
+const { data: profileData, error: profileError, loading: profileLoading } = useJson('profile.json')
+
+const profileInfo = computed(() => {
+  if (!profileData.value?.profile) {
+    return {
+      name: 'Portfolio',
+      email: 'contact@example.com',
+      phone: '+33 6 12 34 56 78',
+      location: 'Nice, France'
+    }
+  }
+  
+  return {
+    name: profileData.value.profile.name || 'Portfolio',
+    email: profileData.value.profile.email || 'contact@example.com',
+    phone: profileData.value.profile.phone || '+33 6 12 34 56 78',
+    location: profileData.value.profile.location || 'Nice, France'
+  }
+})
 
 // Timer pour afficher l'avertissement de timeout
-let timeoutTimer: NodeJS.Timeout
+let timeoutTimer: NodeJS.Timeout;
 
 // Force reload function
 const forceReload = () => {
-  console.log("🔄 Force reload des projets...")
-  retry()
-}
+  console.log("🔄 Force reload des projets...");
+  retry();
+};
 
 // Watcher pour gérer les messages de chargement
 watch(loading, (isLoading) => {
   if (isLoading) {
-    showTimeoutWarning.value = false
-    loadingMessage.value = "Chargement des projets..."
-    
+    showTimeoutWarning.value = false;
+    loadingMessage.value = "Chargement des projets...";
+
     // Afficher l'avertissement après 5 secondes
     timeoutTimer = setTimeout(() => {
       if (loading.value) {
-        showTimeoutWarning.value = true
-        loadingMessage.value = "Connexion lente détectée..."
+        showTimeoutWarning.value = true;
+        loadingMessage.value = "Connexion lente détectée...";
       }
-    }, 5000)
+    }, 5000);
   } else {
-    clearTimeout(timeoutTimer)
-    showTimeoutWarning.value = false
+    clearTimeout(timeoutTimer);
+    showTimeoutWarning.value = false;
   }
-})
+});
 
 // Watcher pour débugger les changements de route
-watch(() => useRoute().path, (newPath, oldPath) => {
-  console.log(`🧭 Navigation: ${oldPath} → ${newPath}`)
-  if (newPath === '/projets' && oldPath && oldPath !== '/projets') {
-    console.log("📍 Arrivée sur /projets depuis", oldPath)
-    // Force un petit délai pour laisser la page se stabiliser
-    nextTick(() => {
-      if (!data.value && !loading.value) {
-        console.log("🔄 Relance du chargement après navigation")
-        retry()
-      }
-    })
+watch(
+  () => useRoute().path,
+  (newPath, oldPath) => {
+    console.log(`🧭 Navigation: ${oldPath} → ${newPath}`);
+    if (newPath === "/projets" && oldPath && oldPath !== "/projets") {
+      console.log("📍 Arrivée sur /projets depuis", oldPath);
+      // Force un petit délai pour laisser la page se stabiliser
+      nextTick(() => {
+        if (!data.value && !loading.value) {
+          console.log("🔄 Relance du chargement après navigation");
+          retry();
+        }
+      });
+    }
   }
-})
+);
 
 // Filtres disponibles (générés dynamiquement depuis les données)
 const filters = computed(() => {
   if (!data.value?.projects?.length) {
-    return [{ id: "all", name: "Tous", icon: "🎯" }]
+    return [{ id: "all", name: "Tous", icon: "🎯" }];
   }
 
-  const categories = [...new Set(data.value.projects.map((p: any) => p.category))]
+  const categories = [
+    ...new Set(data.value.projects.map((p: any) => p.category)),
+  ];
   const filterMap: Record<string, { name: string; icon: string }> = {
     web: { name: "Applications Web", icon: "🌐" },
     mobile: { name: "Mobile", icon: "📱" },
@@ -413,7 +468,7 @@ const filters = computed(() => {
     dashboard: { name: "Dashboards", icon: "📊" },
     api: { name: "API", icon: "⚡" },
     desktop: { name: "Desktop", icon: "💻" },
-  }
+  };
 
   return [
     { id: "all", name: "Tous", icon: "🎯" },
@@ -422,93 +477,95 @@ const filters = computed(() => {
       name: filterMap[cat]?.name || cat,
       icon: filterMap[cat]?.icon || "📦",
     })),
-  ]
-})
+  ];
+});
 
 // Projets filtrés
 const filteredProjects = computed(() => {
-  if (!data.value?.projects?.length) return []
+  if (!data.value?.projects?.length) return [];
 
   if (activeFilter.value === "all") {
-    return data.value.projects
+    return data.value.projects;
   }
   return data.value.projects.filter(
     (project: any) => project.category === activeFilter.value
-  )
-})
+  );
+});
 
 // Statistiques des projets
 const projectStats = computed(() => {
   if (!data.value?.projects?.length) {
-    return { total: 0, completed: 0, technologies: 0, clients: "0" }
+    return { total: 0, completed: 0, technologies: 0, clients: "0" };
   }
 
-  const projects = data.value.projects
-  const completed = projects.filter((p: any) => p.status === "completed").length
+  const projects = data.value.projects;
+  const completed = projects.filter(
+    (p: any) => p.status === "completed"
+  ).length;
   const technologies = [
-    ...new Set(projects.flatMap((p: any) => p.technologies || []))
-  ].length
+    ...new Set(projects.flatMap((p: any) => p.technologies || [])),
+  ].length;
 
   return {
     total: projects.length,
     completed,
     technologies,
-    clients: Math.ceil(projects.length * 0.8).toString() // Simulation
-  }
-})
+    clients: Math.ceil(projects.length * 0.8).toString(), // Simulation
+  };
+});
 
 // Fonction utilitaire pour les labels de statut
 const getStatusLabel = (status: string) => {
   const labels: Record<string, string> = {
     completed: "Terminé",
     "in-progress": "En cours",
-    planning: "Planifié"
-  }
-  return labels[status] || status
-}
+    planning: "Planifié",
+  };
+  return labels[status] || status;
+};
 
 // Gestion des erreurs d'images
 const handleImageError = (event: Event) => {
-  const img = event.target as HTMLImageElement
-  img.src = '/images/placeholder-project.jpg'
-}
+  const img = event.target as HTMLImageElement;
+  img.src = "/images/placeholder-project.jpg";
+};
 
 // Animations d'entrée
 const onBeforeEnter = (el: Element) => {
-  const element = el as HTMLElement
-  element.style.opacity = '0'
-  element.style.transform = 'translateY(30px)'
-}
+  const element = el as HTMLElement;
+  element.style.opacity = "0";
+  element.style.transform = "translateY(30px)";
+};
 
 const onEnter = (el: Element, done: () => void) => {
-  const element = el as HTMLElement
-  const index = parseInt(element.dataset.index || '0')
-  
+  const element = el as HTMLElement;
+  const index = parseInt(element.dataset.index || "0");
+
   setTimeout(() => {
-    element.style.transition = 'all 0.4s ease-out'
-    element.style.opacity = '1'
-    element.style.transform = 'translateY(0)'
-    done()
-  }, index * 100)
-}
+    element.style.transition = "all 0.4s ease-out";
+    element.style.opacity = "1";
+    element.style.transform = "translateY(0)";
+    done();
+  }, index * 100);
+};
 
 // Lifecycle
 onMounted(() => {
-  console.log("📱 Page projets montée")
-  isMounted.value = true
-  
+  console.log("📱 Page projets montée");
+  isMounted.value = true;
+
   // Debug des données au montage
   console.log("🔍 État initial:", {
     loading: loading.value,
     error: error.value,
     hasData: !!data.value,
-    route: useRoute().path
-  })
-})
+    route: useRoute().path,
+  });
+});
 
 onUnmounted(() => {
-  clearTimeout(timeoutTimer)
-})
+  clearTimeout(timeoutTimer);
+});
 </script>
 
 <style scoped>
@@ -539,7 +596,7 @@ onUnmounted(() => {
 }
 
 .card-theme::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -570,11 +627,11 @@ onUnmounted(() => {
   .grid {
     grid-template-columns: 1fr;
   }
-  
+
   .flex-wrap {
     gap: 0.5rem;
   }
-  
+
   .px-6 {
     padding-left: 1rem;
     padding-right: 1rem;
